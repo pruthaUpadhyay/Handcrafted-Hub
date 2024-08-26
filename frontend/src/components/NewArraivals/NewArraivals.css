@@ -1,21 +1,18 @@
+
 .most_loved_section {
-    padding: 20px 30px;
-}
-.most_loved_section {
+    
     /* display: flex; */
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin: 20px 0; /* Optional: Adjust as needed */
 }
 
 .most_loved_section svg {
-    margin: 0 10px; /* Optional: Adjust spacing between text and SVG */
+   text-align: center;
+   align-items: center;
+   justify-content: center;
 }
 
-.most_loved_section h2 {
-    margin: 0;
-}
 
 
 /* Reset and Base Styles */

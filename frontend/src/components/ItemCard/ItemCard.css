@@ -1,0 +1,39 @@
+.item-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  margin: 10px;
+  padding: 10px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.item-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.item-details {
+  padding: 10px;
+}
+
+.item-name {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+.item-price {
+  color: #888;
+  margin: 5px 0;
+}
+
+.item-button {
+  background-color: #f9a825;
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}

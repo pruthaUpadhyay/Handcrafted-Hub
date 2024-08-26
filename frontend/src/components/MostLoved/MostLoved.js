@@ -7,14 +7,13 @@ export default function MostLoved() {
         { id: 2, name: "Product 2", image: "image2.jpg" },
         { id: 3, name: "Product 3", image: "image3.jpg" },
     ];
-
     return (
         <div>
             <section className="most_loved_section section is-width-wide has-gutter-enabled custom_section">
                 <div className="heading_most_loved secHead page-width">
-                    <h2 className="main_heading text-center">
+                    <h2 className="main_heading text-center mx-auto">
                         {/* SVG Title */}
-                        <svg id="Group_1514" data-name="Group 1514" xmlns="http://www.w3.org/2000/svg" width="278.223" height="49.155" viewBox="0 0 278.223 49.155">
+                        <svg id="Group_1514" data-name="Group 1514" xmlns="http://www.w3.org/2000/svg" width="278.223" height="49.155" viewBox="0 0 278.223 49.155" >
                             <g id="Group_4905" data-name="Group 4905" transform="translate(257.299 25.56)">
                                 <g id="Group_4808" data-name="Group 4808" transform="translate(6.636 0)">
                                     <path id="Path_4842" data-name="Path 4842" d="M-5667.7,49.064c.414.345-.1.445-.32.922s-.242.467-.458.944-.331.432-.549.909-.012.577-.381.965c-.353-.126-.693-.2-1.053-.3s-.739-.131-1.107-.206-.718-.241-1.092-.29-.747-.126-1.124-.15-.757-.017-1.136-.017c-.161,0-.47.114-.33.039a5.866,5.866,0,0,1,1.069-.454c.542-.206.537-.216,1.08-.422s.567-.151,1.109-.357.564-.156,1.107-.362.492-.321,1.034-.527.7.052,1.171-.268C-5668.18,49.152-5668.138,48.7-5667.7,49.064Z" transform="translate(5675.286 -48.929)" fill="#363636" />
