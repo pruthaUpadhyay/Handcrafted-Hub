@@ -1,0 +1,179 @@
+#shopify-section-template--16897766424771__index_reel_HdFr9w {
+  padding-top: 0px;
+  padding-bottom: 16px;
+  width: 100%;
+}
+
+#shopify-section-template--16897766424771__index_reel_HdFr9w
+  .collection-thumbnail-overlay {
+  background-color: rgba(147, 147, 147, 0);
+}
+
+#shopify-section-template--16897766424771__index_reel_HdFr9w
+  .collection-info__caption
+  span {
+  color: #ffffff;
+}
+
+.reel_section {
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  text-align: center;
+}
+
+.main_heading {
+  font-size: 1.9em;
+  margin-block-start: 1.4em;
+  margin-block-end: 1em;
+  text-align: center;
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 700;
+}
+
+.reel-additional_heading {
+  font-size: 1.3177159590043925vw;
+  padding-bottom: 1%;
+  color: #363636;
+  opacity: 70%;
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 700;
+}
+
+.reelContainer {
+    display: flex;
+    cursor: grab;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    padding: 0 20px; /* Add padding for better spacing */
+  }
+  
+  /* Hide scrollbar for Chrome, Safari, and Opera */
+  .reelContainer::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Container for individual video items */
+  .column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px; /* Adjusted padding for better spacing */
+    border-radius: 10px;
+    min-width: 100px; /* Adjusted width */
+    flex: 0 0 auto;
+    box-sizing: border-box;
+  }
+  
+  /* Ensure video elements are styled correctly */
+  .video_icon_wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 500px; /* Max width for the video */
+  }
+  
+  .video {
+    width: 100%;
+    height: auto;
+    max-height: 420px; /* Adjust the max height */
+    border-radius: 10px;
+    display: block;
+  }
+  
+  .play_video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden; /* Hide play button by default */
+  }
+  
+  .play_video svg {
+    fill: #fff;
+  }
+  
+  .video_icon_wrapper:hover .play_video {
+    visibility: visible; /* Show play button on hover */
+  }
+  
+  .img_btn {
+    margin-top: 10px;
+  }
+  
+  /* Responsive adjustments for smaller screens */
+  @media only screen and (max-width: 600px) {
+    .reel_section .medium-down--one-whole {
+      width: calc(75% - 20px);
+    }
+  
+    .reel_video .custom_reel {
+      width: 80% !important; /* Increased for better visibility */
+    }
+  
+    .reel_section .desktop {
+      display: none;
+    }
+  
+    .reel_section .mobile {
+      display: block;
+    }
+  }
+  
+  @media only screen and (min-width: 601px) {
+    .reel_section .mobile {
+      display: none;
+    }
+  
+    .reel_section .desktop {
+      display: block;
+      width: 22%;
+    }
+  }
+  
+  .page-width {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  
+  /* Button styling */
+  .btn {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-family: "Bai Jamjuree", sans-serif;
+    font-weight: 700;
+    color: #fff;
+    background-color: #f76c6c;
+    border: none;
+    border-radius: 30px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+    cursor: pointer;
+  }
+  
+  .btn:hover,
+  .btn:focus {
+    background-color: #e55d5d;
+    transform: scale(1.05);
+  }
+  
+  .btn:active {
+    background-color: #d9534f;
+    transform: scale(0.95);
+  }
+  
+  .btn:disabled {
+    background-color: #ddd;
+    color: #aaa;
+    cursor: not-allowed;
+  }

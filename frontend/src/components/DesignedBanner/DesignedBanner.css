@@ -1,0 +1,90 @@
+
+.new_usp_section {
+  max-width: 100%;
+  width: 100%;
+  background-color: #f9f9f9;
+  margin-bottom: px;
+}
+
+.new_usp_section .column_description {
+  text-align: center;
+  color: #4b6246;
+  width: 75%;
+  margin: auto;
+}
+
+.new_usp_section .column_heading {
+  text-align: center;
+  padding-bottom: 5%;
+}
+
+.new_usp_section .usp_container {
+  width: 90%;
+  margin: auto;
+  padding-block: 2%;
+}
+
+.new_usp_section .row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.new_usp_section .col-4 {
+  width: 33%;
+}
+
+.new_usp_section .col-4:not(:last-child) .column_heading {
+  border-right: 1px solid #4b6246;
+}
+
+  /* p.column_description {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+} */
+
+@media only screen and (max-width: 600px) {
+  .new_usp_section .col-4 {
+    width: 100%;
+  }
+
+  .new_usp_section .col-4:not(:last-child) .column_heading {
+    border-right: unset;
+  }
+
+  .new_usp_section .col-4:not(:last-child) .column_description {
+    border-bottom: 1px solid #4b6246;
+    padding-bottom: 5%;
+  }
+
+  .new_usp_section .col-4:not(:last-child) {
+    padding-bottom: 4%;
+  }
+
+  .column_heading {
+    padding-bottom: 2%;
+    width: 85%;
+    margin: auto;
+  }
+
+  .new_usp_section .usp_container {
+    width: 100%;
+    padding-block: 0;
+  }
+
+  .new_usp_section .column_heading svg {
+    width: 100%;
+  }
+  .new_usp_section{
+    margin-bottom: px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .column_heading svg {
+    width: 95%;
+  }
+}

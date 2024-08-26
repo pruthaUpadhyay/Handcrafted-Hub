@@ -1,0 +1,147 @@
+.usp_heading{
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+.usp_section .usp_heading .uheading {
+  color: #363636;
+  opacity: 70%;
+  text-transform: uppercase;
+  text-align: center;
+}
+.svg_wrapper > svg {
+  width: 100%;
+}
+
+.usp-section {
+  background-color: #f9f5e3;
+}
+
+.usp_section .row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.usp_section .col-4 {
+  flex-basis: 25%;
+}
+
+.usp_section .card_container {
+  padding: 4%;
+  text-align: center;
+}
+
+.usp_section .img_block {
+  margin: auto;
+  min-height: 70px;
+  width: 20%;
+  height: 95px;
+}
+
+.usp_section .img_block img {
+  width: 100%;
+  height: auto;
+}
+
+.usp_section p.column_description {
+  color: #363636;
+  opacity: 50%;
+  font-family: "BaiJamjuree-Regular";
+  font-size: 1.171303074670571vw;
+}
+
+.usp_section h3.column_heading {
+  font-weight: 600;
+  color: #000;
+  margin-top: 10px;
+  font-family: BaiJamjuree-Medium;
+  font-size: 1.3177159590043925vw;
+}
+
+.usp_section .usp_container {
+  padding: 0;
+}
+
+.usp_section .usp_section_btn {
+  text-align: center;
+  padding-bottom: 1%;
+}
+
+.usp_section .usp_section_btn a {
+  color: #fab035;
+  border-bottom: 1px solid #fab035;
+}
+
+@media only screen and (max-width: 600px) {
+  .usp_section .column_heading {
+    width: 100%;
+  }
+
+  .usp-section {
+    margin-top: 8%;
+  }
+
+  .usp_section p.column_description {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+  }
+
+  .usp_section .card_container {
+    display: flex;
+  }
+
+  .usp_section .col-4 {
+    flex-basis: 100%;
+  }
+
+  .usp_section .text_block {
+    padding-left: 5%;
+    text-align: left;
+  }
+
+  .usp_section section.section.usp_section {
+    padding-block: 5%;
+  }
+
+  .usp_section .usp_container {
+    padding: 5% 1% 1%;
+  }
+
+  .usp_section .usp_heading .uheading {
+    font-weight: 600;
+  }
+
+  .usp_section .svg_wrapper {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .usp_section .svg_wrapper svg {
+    width: 350%;
+  }
+
+  .usp_section {
+    max-width: 90%;
+  }
+  .usp_section h3.column_heading {
+    font-size: 14px;
+  }
+
+  .usp_section .img_block {
+    width: 30%;
+    min-height: 50px;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 600px) {
+  .usp_section .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .usp_section h3.column_heading {
+    font-size: 15px;
+  }
+  .usp_section p.column_description {
+    font-size: 14px;
+  }
+}
