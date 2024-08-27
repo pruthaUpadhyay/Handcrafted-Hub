@@ -1,5 +1,6 @@
 import React from 'react'
 import ItemList from '../../components/ItemList/ItemList';
+import './Category.css'
 
 
 export default function Category() {
@@ -52,11 +53,529 @@ export default function Category() {
     // }, []);
     return (
         <div>
-            <div className="app">
-                <h1>Kurtis & Kurtas</h1>
-                {/*  <ItemList items={items} /> */}
+            <div id="wrapper">
+            
                 
-            </div>
-        </div>
+                <div id="grid">
+                    <div className="product">
+                        <div className="info-large">
+                            <h4>FLUTED HEM DRESS</h4>
+                            <div className="sku">
+                                PRODUCT SKU: <strong>89356</strong>
+                            </div>
+                            <div className="price-big">
+                                <span>$43</span> $39
+                            </div>
+                            
+                            
+                            <button className="add-cart-large">Add To Cart</button>
+                        </div>
+                        <div className="make3D">
+                            <div className="product-front">
+                                <div className="shadow" />
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1.jpg" alt="" />
+                                <div className="image_overlay" />
+                                <div className="add_to_cart">Add to cart</div>
+                                <div className="view_gallery">View gallery</div>
+                                <div className="stats">
+                                    <div className="stats-container">
+                                        <span className="product_price">$39</span>
+                                        <span className="product_name">FLUTED HEM DRESS</span>
+                                        <p>Summer dress</p>
+                                        <div className="product-options">
+                                            <strong>SIZES</strong>
+                                            <span>XS, S, M, L, XL, XXL</span>
+                                            <strong>COLORS</strong>
+                                            <div className="colors">
+                                                <div className="c-blue"><span /></div>
+                                                <div className="c-red"><span /></div>
+                                                <div className="c-white"><span /></div>
+                                                <div className="c-green"><span /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="product-back">
+                                <div className="shadow" />
+                                <div className="carousel">
+                                    <ul className="carousel-container">
+                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1.jpg" alt="" /></li>
+                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2.jpg" alt="" /></li>
+                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/3.jpg" alt="" /></li>
+                                    </ul>
+                                    <div className="arrows-perspective">
+                                        <div className="carouselPrev">
+                                            <div className="y" />
+                                            <div className="x" />
+                                        </div>
+                                        <div className="carouselNext">
+                                            <div className="y" />
+                                            <div className="x" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flip-back">
+                                    <div className="cy" />
+                                    <div className="cx" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="product">
+                        <div className="info-large">
+                            <h4>PLEAT PRINTED DRESS</h4>
+                            <div className="sku">
+                                PRODUCT SKU: <strong>89356</strong>
+                            </div>
+                            <div className="price-big">
+                                <span>$43</span> $39
+                            </div>
+                            
+                            
+                            <button className="add-cart-large">Add To Cart</button>
+                        </div>
+                        <div className="make3D">
+                            <div className="product-front">
+                                <div className="shadow" />
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2.jpg" alt="" />
+                                <div className="image_overlay" />
+                                <div className="add_to_cart">Add to cart</div>
+                                <div className="view_gallery">View gallery</div>
+                                <div className="stats">
+                                    <div className="stats-container">
+                                        <span className="product_price">$39</span>
+                                        <span className="product_name">PLEAT PRINTED DRESS</span>
+                                        <p>Summer dress</p>
+                                        <div className="product-options">
+                                            <strong>SIZES</strong>
+                                            <span>XS, S, M, L, XL, XXL</span>
+                                            <strong>COLORS</strong>
+                                            <div className="colors">
+                                                <div className="c-blue"><span /></div>
+                                                <div className="c-red"><span /></div>
+                                                <div className="c-white"><span /></div>
+                                                <div className="c-green"><span /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="product-back">
+                                <div className="shadow" />
+                                <div className="carousel">
+                                    <ul className="carousel-container">
+                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/2.jpg" alt="" /></li>
+                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/3.jpg" alt="" /></li>
+                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/4.jpg" alt="" /></li>
+                                    </ul>
+                                    <div className="arrows-perspective">
+                                        <div className="carouselPrev">
+                                            <div className="y" />
+                                            <div className="x" />
+                                        </div>
+                                        <div className="carouselNext">
+                                            <div className="y" />
+                                            <div className="x" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flip-back">
+                                    <div className="cy" />
+                                    <div className="cx" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="product">
+                        <div className="info-large">
+                            <h4>FLOWY SHIRT DRESS</h4>
+                            <div className="sku">
+                                PRODUCT SKU: <strong>89356</strong>
+                            </div>
+                            <div className="price-big">
+                                <span>$43</span> $39
+                            </div>
+                            
+                            
+                            <button className="add-cart-large">Add To Cart</button>
+                        </div>
+                        <div className="make3D">
+                            <div className="product-front">
+                                <div className="shadow" />
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/3.jpg" alt="" />
+                                <div className="image_overlay" />
+                                <div className="add_to_cart">Add to cart</div>
+                                <div className="view_gallery">View gallery</div>
+                                <div className="stats">
+                                    <div className="stats-container">
+                                        <span className="product_price">$39</span>
+                                        <span className="product_name">FLOWY SHIRT DRESS</span>
+                                        <p>Summer dress</p>
+                                        <div className="product-options">
+                                            <strong>SIZES</strong>
+                                            <span>XS, S, M, L, XL, XXL</span>
+                                            <strong>COLORS</strong>
+                                            <div className="colors">
+                                                <div className="c-blue"><span /></div>
+                                                <div className="c-red"><span /></div>
+                                                <div className="c-white"><span /></div>
+                                                <div className="c-green"><span /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="product-back">
+                                <div className="shadow" />
+                                <div className="carousel">
+                                    <ul className="carousel-container">
+                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/3.jpg" alt="" /></li>
+                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/4.jpg" alt="" /></li>
+                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/1.jpg" alt="" /></li>
+                                    </ul>
+                                    <div className="arrows-perspective">
+                                        <div className="carouselPrev">
+                                            <div className="y" />
+                                            <div className="x" />
+                                        </div>
+                                        <div className="carouselNext">
+                                            <div className="y" />
+                                            <div className="x" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flip-back">
+                                    <div className="cy" />
+                                    <div className="cx" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="product">
+                        <div className="info-large">
+                            <h4>DOUBLE LAYER DRESS</h4>
+                            <div className="sku">
+                                PRODUCT SKU: <strong>89356</strong>
+                            </div>
+                            <div className="price-big">
+                                <span>$43</span> $39
+                            </div>
+                            
+                            
+                            <button className="add-cart-large">Add To Cart</button>
+                        </div>
+                        <div className="make3D">
+                            <div className="product-front">
+                                <div className="shadow" />
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/4.jpg" alt="" />
+                                <div className="image_overlay" />
+                                <div className="add_to_cart">Add to cart</div>
+                                <div className="view_gallery">View gallery</div>
+                                <div className="stats">
+                                    <div className="stats-container">
+                                        <span className="product_price">$39</span>
+                                        <span className="product_name">DOUBLE LAYER DRESS</span>
+                                        <p>Summer dress</p>
+                                        <div className="product-options">
+                                            <strong>SIZES</strong>
+                                            <span>XS, S, M, L, XL, XXL</span>
+                                            <strong>COLORS</strong>
+                                            <div className="colors">
+                                                <div className="c-blue"><span /></div>
+                                                <div className="c-red"><span /></div>
+                                                <div className="c-white"><span /></div>
+                                                <div className="c-green"><span /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="product-back">
+                                <div className="shadow" />
+                                <div className="carousel">
+                                    <ul className="carousel-container">
+                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/4.jpg" alt="" /></li>
+                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/6.jpg" alt="" /></li>
+                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/7.jpg" alt="" /></li>
+                                    </ul>
+                                    <div className="arrows-perspective">
+                                        <div className="carouselPrev">
+                                            <div className="y" />
+                                            <div className="x" />
+                                        </div>
+                                        <div className="carouselNext">
+                                            <div className="y" />
+                                            <div className="x" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flip-back">
+                                    <div className="cy" />
+                                    <div className="cx" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="product">
+                        <div className="info-large">
+                            <h4>BEAD DETAIL DRESS</h4>
+                            <div className="sku">
+                                PRODUCT SKU: <strong>89356</strong>
+                            </div>
+                            <div className="price-big">
+                                <span>$43</span> $39
+                            </div>
+                            
+                            
+                            <button className="add-cart-large">Add To Cart</button>
+                        </div>
+                        <div className="make3D">
+                            <div className="product-front">
+                                <div className="shadow" />
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/5.jpg" alt="" />
+                                <div className="image_overlay" />
+                                <div className="add_to_cart">Add to cart</div>
+                                <div className="view_gallery">View gallery</div>
+                                <div className="stats">
+                                    <div className="stats-container">
+                                        <span className="product_price">$39</span>
+                                        <span className="product_name">BEAD DETAIL DRESS</span>
+                                        <p>Summer dress</p>
+                                        <div className="product-options">
+                                            <strong>SIZES</strong>
+                                            <span>XS, S, M, L, XL, XXL</span>
+                                            <strong>COLORS</strong>
+                                            <div className="colors">
+                                                <div className="c-blue"><span /></div>
+                                                <div className="c-red"><span /></div>
+                                                <div className="c-white"><span /></div>
+                                                <div className="c-green"><span /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="product-back">
+                                <div className="shadow" />
+                                <div className="carousel">
+                                    <ul className="carousel-container">
+                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/5.jpg" alt="" /></li>
+                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/7.jpg" alt="" /></li>
+                                    </ul>
+                                    <div className="arrows-perspective">
+                                        <div className="carouselPrev">
+                                            <div className="y" />
+                                            <div className="x" />
+                                        </div>
+                                        <div className="carouselNext">
+                                            <div className="y" />
+                                            <div className="x" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flip-back">
+                                    <div className="cy" />
+                                    <div className="cx" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="product">
+                        <div className="info-large">
+                            <h4>PLEATED DETAIL DRESS</h4>
+                            <div className="sku">
+                                PRODUCT SKU: <strong>89356</strong>
+                            </div>
+                            <div className="price-big">
+                                <span>$43</span> $39
+                            </div>
+                            <h3>COLORS</h3>
+                            <div className="colors-large">
+                                <ul>
+                                    <li><a href style={{ background: '#222' }}><span /></a></li>
+                                    <li><a href style={{ background: '#6e8cd5' }}><span /></a></li>
+                                    <li><a href style={{ background: '#9b887b' }}><span /></a></li>
+                                    <li><a href style={{ background: '#44c28d' }}><span /></a></li>
+                                </ul>
+                            </div>
+                            
+                            <button className="add-cart-large">Add To Cart</button>
+                        </div>
+                        <div className="make3D">
+                            <div className="product-front">
+                                <div className="shadow" />
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/6.jpg" alt="" />
+                                <div className="image_overlay" />
+                                <div className="add_to_cart">Add to cart</div>
+                                <div className="view_gallery">View gallery</div>
+                                <div className="stats">
+                                    <div className="stats-container">
+                                        <span className="product_price">$39</span>
+                                        <span className="product_name">PLEATED DETAIL DRESS</span>
+                                        <p>Summer dress</p>
+                                        <div className="product-options">
+                                            <strong>SIZES</strong>
+                                            <span>XS, S, M, L, XL, XXL</span>
+                                            <strong>COLORS</strong>
+                                            <div className="colors">
+                                                <div className="c-blue"><span /></div>
+                                                <div className="c-red"><span /></div>
+                                                <div className="c-white"><span /></div>
+                                                <div className="c-green"><span /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="product-back">
+                                <div className="shadow" />
+                                <div className="carousel">
+                                    <ul className="carousel-container">
+                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/6.jpg" alt="" /></li>
+                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/7.jpg" alt="" /></li>
+                                    </ul>
+                                    <div className="arrows-perspective">
+                                        <div className="carouselPrev">
+                                            <div className="y" />
+                                            <div className="x" />
+                                        </div>
+                                        <div className="carouselNext">
+                                            <div className="y" />
+                                            <div className="x" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flip-back">
+                                    <div className="cy" />
+                                    <div className="cx" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="product">
+                        <div className="info-large">
+                            <h4>PRINTED DRESS</h4>
+                            <div className="sku">
+                                PRODUCT SKU: <strong>89356</strong>
+                            </div>
+                            <div className="price-big">
+                                <span>$43</span> $39
+                            </div>
+                            <h3>COLORS</h3>
+                            <div className="colors-large">
+                                <ul>
+                                    <li><a href style={{ background: '#222' }}><span /></a></li>
+                                    <li><a href style={{ background: '#6e8cd5' }}><span /></a></li>
+                                    <li><a href style={{ background: '#9b887b' }}><span /></a></li>
+                                    <li><a href style={{ background: '#44c28d' }}><span /></a></li>
+                                </ul>
+                            </div>
+                            
+                            <button className="add-cart-large">Add To Cart</button>
+                        </div>
+                        <div className="make3D">
+                            <div className="product-front">
+                                <div className="shadow" />
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/7.jpg" alt="" />
+                                <div className="image_overlay" />
+                                <div className="add_to_cart">Add to cart</div>
+                                <div className="view_gallery">View gallery</div>
+                                <div className="stats">
+                                    <div className="stats-container">
+                                        <span className="product_price">$39</span>
+                                        <span className="product_name">PRINTED DRESS</span>
+                                        <p>Summer dress</p>
+                                        <div className="product-options">
+                                            <strong>SIZES</strong>
+                                            <span>XS, S, M, L, XL, XXL</span>
+                                            <strong>COLORS</strong>
+                                            <div className="colors">
+                                                <div className="c-blue"><span /></div>
+                                                <div className="c-red"><span /></div>
+                                                <div className="c-white"><span /></div>
+                                                <div className="c-green"><span /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="product-back">
+                                <div className="shadow" />
+                                <div className="carousel">
+                                    <ul className="carousel-container">
+                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/7.jpg" alt="" /></li>
+                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/5.jpg" alt="" /></li>
+                                        <li><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/4.jpg" alt="" /></li>
+                                    </ul>
+                                    <div className="arrows-perspective">
+                                        <div className="carouselPrev">
+                                            <div className="y" />
+                                            <div className="x" />
+                                        </div>
+                                        <div className="carouselNext">
+                                            <div className="y" />
+                                            <div className="x" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flip-back">
+                                    <div className="cy" />
+                                    <div className="cx" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="product">
+                        <div className="info-large">
+                            <h4>PRINTED DRESS</h4>
+                            <div className="sku">
+                                PRODUCT SKU: <strong>89356</strong>
+                            </div>
+                            <div className="price-big">
+                                <span>$43</span> $39
+                            </div>
+                            <h3>COLORS</h3>
+                            <div className="colors-large">
+                                <ul>
+                                    <li><a href style={{ background: '#222' }}><span /></a></li>
+                                    <li><a href style={{ background: '#6e8cd5' }}><span /></a></li>
+                                    <li><a href style={{ background: '#9b887b' }}><span /></a></li>
+                                    <li><a href style={{ background: '#44c28d' }}><span /></a></li>
+                                </ul>
+                            </div>
+                            
+                            <button className="add-cart-large">Add To Cart</button>
+                        </div>
+                        <div className="make3D">
+                            <div className="product-front">
+                                <div className="shadow" />
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/8.jpg" alt="" />
+                                <div className="image_overlay" />
+                                <div className="add_to_cart">Add to cart</div>
+                                <div className="view_gallery">View gallery</div>
+                                <div className="stats">
+                                    <div className="stats-container">
+                                        <span className="product_price">$39</span>
+                                        <span className="product_name">PRINTED DRESS</span>
+                                        <p>Summer dress</p>
+                                        <div className="product-options">
+                                            <strong>SIZES</strong>
+                                            <span>XS, S, M, L, XL, XXL</span>
+                                            <strong>COLORS</strong>
+                                            <div className="colors">
+                                                <div className="c-blue"><span /></div>
+                                                <div className="c-red"><span /></div>
+                                                <div className="c-white"><span /></div>
+                                                <div className="c-green"><span /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="product-back">
+                                <div className="shadow" />
+                            </div></div></div></div></div></div>
+
     )
 }
