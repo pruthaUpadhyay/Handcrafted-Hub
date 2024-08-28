@@ -16,15 +16,15 @@ function Home() {
   return (
     <div>
       <Header></Header>
-      {/* <Banner/>
+      <Banner/>
       <BestSeller/>
       <ReviewBanner/>
       <MostLoved/>
       <DesignedBanner/>
       <NewArraivals/>
       <About/>
-      <SocialReview/> */}
-      <Category/>
+      <SocialReview/>
+      {/* <Category/> */}
       
       <Footer/>
     </div>
