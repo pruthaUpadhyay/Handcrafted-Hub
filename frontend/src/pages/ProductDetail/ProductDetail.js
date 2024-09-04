@@ -1,58 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { FaHeart } from 'react-icons/fa'; // Font Awesome Heart icon
+import { useParams } from 'react-router-dom'; // Ensure you're importing useParams
+import { FaHeart } from 'react-icons/fa';
 import './ProductDetail.css';
 
 const ProductDetail = () => {
-    const { productName } = useParams();
-
-    // Sample products data. In a real app, fetch data based on productName.
-    const products = [
-        {
-            id: 1,
-            name: "Fluted Hem Dress",
-            description: "A stylish summer dress with a fluted hem.",
-            price: 39,
-            images: [
-                "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_1.jpg",
-                "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_2.jpg",
-                "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_3.jpg",
-                "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_4.jpg"
-            ]
-        },
-        // Add other products here...
-    ];
-
-    // Find the selected product based on the productName
-    const product = products.find(p => p.name === decodeURIComponent(productName));
-
-    // State for managing the current image index
+    const { slug } = useParams(); // Capture the slug from the URL
+    const [product, setProduct] = useState(null);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    // Function to handle image clicks
+    useEffect(() => {
+        console.log("Fetched slug from URL:", slug); // Debugging line
+        if (slug) {
+            // Fetch product details from backend using the slug
+            const fetchProduct = async () => {
+                try {
+                    const response = await fetch(`http://localhost:8000/products/${encodeURIComponent(slug)}`);
+                    if (!response.ok) {
+                        throw new Error('Product not found');
+                    }
+                    const data = await response.json();
+                    setProduct(data);
+                } catch (error) {
+                    console.error("Error fetching product:", error);
+                }
+            };
+
+            fetchProduct();
+        }
+    }, [slug]);
+
+    if (!product) {
+        return <div>Loading product details...</div>;
+    }
+
     const handleImageClick = (index) => {
         setCurrentImageIndex(index);
     };
 
-    // Effect to handle image slider on window resize
-    useEffect(() => {
-        const handleResize = () => {
-            const displayWidth = document.querySelector('.img-showcase img').clientWidth;
-            document.querySelector('.img-showcase').style.transform = `translateX(${-currentImageIndex * displayWidth}px)`;
-        };
-
-        window.addEventListener('resize', handleResize);
-        handleResize(); // Initial setup
-
-        return () => window.removeEventListener('resize', handleResize);
-    }, [currentImageIndex]);
-
-    if (!product) {
-        return <div>Product not found</div>;
-    }
-
     return (
         <div className="container mt-4">
+            <h1>products</h1>
             <div className="row card-wrapper">
                 {/* Product Image Slider */}
                 <div className="col-md-6 card">

@@ -40,6 +40,8 @@ urlpatterns = [
     path('admin/',admin.site.urls),
     path('', IndexView.as_view(), name='index'),
     path('api/users/', include('users.urls')),
+    path('', include('products.urls')),
+
     
 
 

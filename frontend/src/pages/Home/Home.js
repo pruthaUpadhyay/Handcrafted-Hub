@@ -15,7 +15,7 @@ import Category from '../Category/Category'
 function Home() {
   return (
     <div>
-      <Header></Header>
+      
       <Banner/>
       <BestSeller/>
       <ReviewBanner/>
@@ -24,7 +24,7 @@ function Home() {
       <NewArraivals/>
       <About/>
       <SocialReview/>
-      {/* <Category/> */}
+      {/* <Category/>  */}
       
       <Footer/>
     </div>

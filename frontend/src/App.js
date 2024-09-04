@@ -7,6 +7,10 @@ import Home from './pages/Home/Home';
 import Category from './pages/Category/Category';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
 import Header from './components/Header/Header';
+// index.js or App.js
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 // import BestSellers from './components/BestSellers';
 // import NewArrivals from './components/NewArrivals';
 // import Testimonials from './components/Testimonials';
@@ -23,7 +27,8 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/category" element={<Category />} />
-                    <Route path="/category/:productName" element={<ProductDetail />} />
+                    <Route path="/products/:slug" element={<ProductDetail />} />
+
                     {/*<Route path="/newarrivals" element={<NewArrivals />} />
                     <Route path="/testimonials" element={<Testimonials />} />
                     <Route path="/govnews" element={<GovNews />} />
@@ -34,10 +39,10 @@ function App() {
                 {/* <Footer /> */}
             </div>
         </Router>
-        // // <>
-        //     {/* <Signup/> */}
-        //     {/* <Home/> */}
-        // // </>
+    // <>
+    //         <Signup/>
+    //         {/* <Home/> */}
+    //     </>
     );
 }
 

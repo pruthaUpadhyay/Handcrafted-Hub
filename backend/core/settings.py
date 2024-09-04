@@ -140,6 +140,12 @@ mongo_db = mongo_client[MONGO_DB_NAME]
 
 # Access the users collection
 MONGO_USER_COLLECTION = mongo_db["users"]
+MONGO_PRODUCT_COLLECTION = mongo_db["products"]
+MONGO_WISHLIST_COLLECTION = mongo_db["whishlist"]
+MONGO_CART_COLLECTION = mongo_db["cart"]
+
+
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
