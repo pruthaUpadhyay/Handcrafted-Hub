@@ -88,8 +88,9 @@ const BestSeller = () => {
                     <div className="pro-container">
                         {products.map(product => (
                             <div className="pro" key={product.id}>
-                                <Link to={`/product/${product.name}`}>
-                                <img src={process.env.PUBLIC_URL + product.image} alt={product.name} />
+                                <Link to={`/products/${product.slug}`}>
+                                
+                                <img src={process.env.PUBLIC_URL + product.images[0]} alt={product.name} />
                                 <div className="des">
                                     <span>{product.brand}</span>
                                     <h5>{product.name}</h5>

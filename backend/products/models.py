@@ -7,7 +7,7 @@ class Product:
     collection = settings.MONGO_PRODUCT_COLLECTION  # Ensure you have this setting in your Django settings
 
     @staticmethod
-    def create_product(name, price, description, image, category, stock, has_sizes, sizes, tags, slug=None):
+    def create_product(name, price, description, category, stock, has_sizes, sizes, tags, slug=None, images=[]):
         # Generate slug if not provided
         if slug is None:
             slug = slugify(name)
@@ -16,7 +16,7 @@ class Product:
             "name": name,
             "price": price,
             "description": description,
-            "image": image,
+            "images": images,  # Make sure to store the array of images here
             "category": category,
             "stock": stock,
             "tags": tags,
@@ -64,4 +64,3 @@ class Product:
     
     def __str__(self):
         return self.name
-    
