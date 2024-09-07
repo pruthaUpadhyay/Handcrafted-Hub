@@ -10,6 +10,8 @@ import SocialReview from '../../components/SocialReview/SocialReview'
 import About from '../../components/About/About'
 import Footer from '../../components/Footer/Footer'
 import Category from '../Category/Category'
+import Cart from '../Cart/Cart'
+
 
 
 function Home() {
@@ -25,6 +27,7 @@ function Home() {
       <About/>
       <SocialReview/>
       {/* <Category/>  */}
+      <Cart/>
       
       <Footer/>
     </div>

@@ -30,6 +30,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',  # Your React app URL
+]
+
+# Allow specific headers
 
 # Application definition
 
@@ -45,14 +51,13 @@ INSTALLED_APPS = [
     'corsheaders',
     'users',
     'products',
-    'content',
+    'cart',
+    'wishlist',
    
 ]
 
-CORS_ALLOWED_ORIGINS =['http://localhost:3000']
-
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -60,8 +65,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
-    
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -125,10 +128,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Add a dummy database configuration to satisfy Django's requirement
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.dummy',  # Dummy backend
-        'NAME': 'dummy_db',  # This value is ignored
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 # MongoDB Connection using pymongo
 # MongoDB settings
@@ -143,7 +147,7 @@ mongo_db = mongo_client[MONGO_DB_NAME]
 MONGO_USER_COLLECTION = mongo_db["users"]
 MONGO_PRODUCT_COLLECTION = mongo_db["products"]
 MONGO_WISHLIST_COLLECTION = mongo_db["whishlist"]
-MONGO_CART_COLLECTION = mongo_db["cart"]
+MONGO_CART_COLLECTION = mongo_db["carts"]
 
 
 
@@ -181,6 +185,7 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
+LOGIN_URL = '/api/users/login/'
 
 # Email configuration (example with Gmail, replace with your email backend)
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

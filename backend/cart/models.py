@@ -8,10 +8,10 @@ class Cart:
     @staticmethod
     def add_to_cart(user_id, product_id, quantity=1):
         cart_item = {
+
             "user_id": ObjectId(user_id),
             "product_id": ObjectId(product_id),
             "quantity": quantity,
-            "added_at": datetime.datetime.utcnow()
         }
         return Cart.collection.insert_one(cart_item)
 
@@ -24,7 +24,7 @@ class Cart:
         return Cart.collection.update_one(
             {"_id": ObjectId(cart_item_id)},
             {"$set": update_fields}
-        )
+        )       
 
     @staticmethod
     def remove_from_cart(cart_item_id):

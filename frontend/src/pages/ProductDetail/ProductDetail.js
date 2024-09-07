@@ -88,17 +88,16 @@
 
 // export default ProductDetail;
 import { AiOutlineHeart } from "react-icons/ai";
-import { BiShoppingBag } from "react-icons/bi";
 import ReactImageGallery from "react-image-gallery";
-import Rater from "react-rater";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"; // Import useParams
-import "react-rater/lib/react-rater.css";
+import { useParams } from "react-router-dom";
+import AddToCartButton from "../../components/AddToCartButton/AddToCartButton";
 
 const ProductDetail = () => {
   const { slug } = useParams(); // Capture the slug from the URL
   const [product, setProduct] = useState(null); // Product state
   const [loading, setLoading] = useState(true);
+  const [quantity, setQuantity] = useState(1); // Initial quantity
 
   useEffect(() => {
     // Fetch product details using the slug
@@ -121,6 +120,14 @@ const ProductDetail = () => {
       fetchProduct();
     }
   }, [slug]);
+
+  const handleQuantityChange = (action) => {
+    if (action === "increase" && quantity < product.stock) {
+      setQuantity(quantity + 1);
+    } else if (action === "decrease" && quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
 
   if (loading) {
     return <div>Loading product details...</div>;
@@ -154,81 +161,53 @@ const ProductDetail = () => {
         <h2 className="pt-3 text-2xl font-bold lg:pt-0">
           {product.name}
         </h2>
-        <div className="mt-1">
-          <div className="flex items-center">
-            <Rater
-              style={{ fontSize: "20px" }}
-              total={5}
-              interactive={false}
-              rating={product.rating || 0} // Use fetched rating
-            />
-            <p className="ml-3 text-sm text-gray-400">({product.reviews || 0})</p>
-          </div>
-        </div>
-        <p className="mt-5 font-bold">
-          Availability:{" "}
-          {product.availability ? (
-            <span className="text-green-600">In Stock</span>
-          ) : (
-            <span className="text-red-600">Expired</span>
-          )}
-        </p>
-        <p className="font-bold">Brand: <span className="font-normal">{product.brand}</span></p>
         <p className="font-bold">Category: <span className="font-normal">{product.category}</span></p>
-        <p className="font-bold">SKU: <span className="font-normal">{product.sku}</span></p>
         <p className="mt-4 text-4xl font-bold text-violet-900">
-          ${product.price}
-          {product.previousPrice && (
-            <span className="text-xs text-gray-400 line-through"> ${product.previousPrice}</span>
-          )}
+        ₹{product.price} INR
         </p>
         <p className="pt-5 text-sm leading-5 text-gray-500">
           {product.description}
         </p>
 
+        {/* Stock Availability */}
+        <p className="font-bold">
+          Stock:{" "}
+          {product.stock > 0 ? (
+            <span className="text-green-600">{product.stock} left</span>
+          ) : (
+            <span className="text-red-600">Out of Stock</span>
+          )}
+        </p>
+
         {/* Size Options */}
-        {product.size && (
+        {product.has_sizes && product.sizes.length > 0 && (
           <div className="mt-6">
             <p className="pb-2 text-xs text-gray-500">Size</p>
             <div className="flex gap-1">
-              {product.size.map((size, index) => (
+              {product.sizes.map((size, index) => (
                 <div key={index} className={plusMinuceButton}>{size}</div>
               ))}
             </div>
           </div>
         )}
 
-        {/* Color Options */}
-        {/* {product.color && (
-          <div className="mt-6">
-            <p className="pb-2 text-xs text-gray-500">Color</p>
-            <div className="flex gap-1">
-              {product.color.map((color, index) => (
-                <div
-                  key={index}
-                  className={`h-8 w-8 cursor-pointer border border-white bg-${color}-600 focus:ring-2 focus:ring-${color}-500 active:ring-2 active:ring-${color}-500`}
-                />
-              ))}
-            </div>
-          </div>
-        )} */}
-
         {/* Quantity Selection */}
         <div className="mt-6">
           <p className="pb-2 text-xs text-gray-500">Quantity</p>
-          <div className="flex">
-            <button className={plusMinuceButton}>−</button>
-            <div className="flex h-8 w-8 cursor-text items-center justify-center border-t border-b active:ring-gray-500">1</div>
-            <button className={plusMinuceButton}>+</button>
+          <div className="flex items-center">
+            <button className={plusMinuceButton} onClick={() => handleQuantityChange("decrease")}>−</button>
+            <div className="flex h-8 w-8 items-center justify-center border-t border-b">{quantity}</div>
+            <button className={plusMinuceButton} onClick={() => handleQuantityChange("increase")}>+</button>
           </div>
+          <p className="text-xs text-gray-500">Max available: {product.stock}</p>
         </div>
 
         {/* Add to Cart and Wishlist Buttons */}
         <div className="mt-7 flex flex-row items-center gap-6">
-          <button className="flex h-12 w-1/3 items-center justify-center bg-violet-900 text-white duration-100 hover:bg-blue-800">
-            <BiShoppingBag className="mx-2" />
-            Add to cart
-          </button>
+          
+            <AddToCartButton productId={product._id}/>
+            <h1>{product._id}</h1>
+          
           <button className="flex h-12 w-1/3 items-center justify-center bg-amber-400 duration-100 hover:bg-yellow-300">
             <AiOutlineHeart className="mx-2" />
             Wishlist

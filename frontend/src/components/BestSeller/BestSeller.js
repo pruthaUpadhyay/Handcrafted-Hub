@@ -8,7 +8,7 @@ const BestSeller = () => {
     // Fetch products from the API
     useEffect(() => {
         fetch('http://127.0.0.1:8000/products/') // Replace with your API endpoint
-            .then(response => response.json())
+            .then(response => response.json())  
             .then(data => setProducts(data))
             .catch(error => console.error('Error fetching products:', error));
     }, []);
