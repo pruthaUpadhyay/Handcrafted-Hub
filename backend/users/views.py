@@ -15,7 +15,7 @@ from rest_framework.permissions import AllowAny
 from django.contrib.auth.hashers import check_password
 from pymongo import MongoClient
 from django.conf import settings
-
+    
 class SignUpView(APIView):
     permission_classes = [AllowAny]
     def post(self, request):
@@ -48,6 +48,10 @@ class SignUpView(APIView):
 
 class LoginView(APIView):
     permission_classes = [AllowAny]
+
+    def get(self, request):
+        # This is for handling GET requests, typically when a user is redirected
+        return Response({"message": "Please login with a POST request"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def post(self, request):
         serializer = LoginSerializer(data=request.data)

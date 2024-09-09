@@ -276,7 +276,7 @@
   //     </section>
   //   );
   // }
-  import React, { useEffect, useState } from "react";
+  import React, { useEffect, useState,useContext } from "react";
 import {
   MDBBtn,
   MDBCard,
@@ -293,61 +293,65 @@ import {
 } from "mdb-react-ui-kit";
 import axios from "axios";
 import './Cart.css';
+import { CartContext } from '../../Context/CartContext';
+
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState([]);
+  const { addToCart,fetchCart,removeFromCart,clearCart,updateCartItem } = useContext(CartContext);
   const [total, setTotal] = useState(0);
 
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      try {
-        const response = await axios.get('http://127.0.0.1:8000/cart/');
-        setCartItems(response.data);
 
-        const totalPrice = response.data.reduce(
-          (sum, item) => sum + item.quantity * item.product.price,
-          0
-        );
-        setTotal(totalPrice);
-      } catch (error) {
-        console.error("Error fetching cart items:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchCartItems = async () => {
+  //     try {
+  //       const response = await axios.get('http://127.0.0.1:8000/cart/');
+  //       setCartItems(response.data);
 
-    fetchCartItems();
-  }, []);
+  //       const totalPrice = response.data.reduce(
+  //         (sum, item) => sum + item.quantity * item.product.price,
+  //         0
+  //       );
+  //       setTotal(totalPrice);
+  //     } catch (error) {
+  //       console.error("Error fetching cart items:", error);
+  //     }
+  //   };
 
-  const updateCartItemQuantity = async (itemId, newQuantity) => {
-    try {
-      await axios.put('http://127.0.0.1:8000/cart/update/', { item_id: itemId, quantity: newQuantity });
-      setCartItems(cartItems.map((item) =>
-        item._id === itemId ? { ...item, quantity: newQuantity } : item
-      ));
+  //   fetchCartItems();
+  // }, []);
 
-      const updatedTotal = cartItems.reduce(
-        (sum, item) => sum + item.quantity * item.product.price,
-        0
-      );
-      setTotal(updatedTotal);
-    } catch (error) {
-      console.error("Error updating quantity:", error);
-    }
-  };
+  // const updateCartItemQuantity = async (itemId, newQuantity) => {
+  //   try {
+  //     await axios.put('http://127.0.0.1:8000/cart/update/', { item_id: itemId, quantity: newQuantity });
+  //     setCartItems(cartItems.map((item) =>
+  //       item._id === itemId ? { ...item, quantity: newQuantity } : item
+  //     ));
 
-  const removeCartItem = async (itemId) => {
-    try {
-      await axios.delete('http://127.0.0.1:8000/cart/remove/', { data: { item_id: itemId } });
-      setCartItems(cartItems.filter((item) => item._id !== itemId));
+  //     const updatedTotal = cartItems.reduce(
+  //       (sum, item) => sum + item.quantity * item.product.price,
+  //       0
+  //     );
+  //     setTotal(updatedTotal);
+  //   } catch (error) {
+  //     console.error("Error updating quantity:", error);
+  //   }
+  // };
 
-      const updatedTotal = cartItems.reduce(
-        (sum, item) => sum + item.quantity * item.product.price,
-        0
-      );
-      setTotal(updatedTotal);
-    } catch (error) {
-      console.error("Error removing item:", error);
-    }
-  };
+  // const removeCartItem = async (itemId) => {
+  //   try {
+  //     await axios.delete('http://127.0.0.1:8000/cart/remove/', { data: { item_id: itemId } });
+  //     setCartItems(cartItems.filter((item) => item._id !== itemId));
+
+  //     const updatedTotal = cartItems.reduce(
+  //       (sum, item) => sum + item.quantity * item.product.price,
+  //       0
+  //     );
+  //     setTotal(updatedTotal);
+  //   } catch (error) {
+  //     console.error("Error removing item:", error);
+  //   }
+  // };
 
   return (
     <section className="h-100 h-custom">
@@ -395,7 +399,7 @@ export default function Cart() {
                           className="px-2"
                           color="link"
                           onClick={() =>
-                            updateCartItemQuantity(item._id, item.quantity - 1)
+                            updateCartItem(item._id, item.quantity - 1)
                           }
                           disabled={item.quantity === 1}
                         >
@@ -415,7 +419,7 @@ export default function Cart() {
                           className="px-2"
                           color="link"
                           onClick={() =>
-                            updateCartItemQuantity(item._id, item.quantity + 1)
+                            updateCartItem(item._id, item.quantity + 1)
                           }
                         >
                           <MDBIcon fas icon="plus" />
@@ -430,7 +434,7 @@ export default function Cart() {
                     <td className="align-middle">
                       <MDBBtn
                         color="danger"
-                        onClick={() => removeCartItem(item._id)}
+                        onClick={() => removeFromCart(item._id)}
                       >
                         Remove
                       </MDBBtn>

@@ -2,8 +2,14 @@ from django.conf import settings
 from bson.objectid import ObjectId
 import datetime
 
+from pymongo import MongoClient
+
+
+client = MongoClient(settings.MONGO_URI)
+db = client[settings.MONGO_DB_NAME]
+cart_collection = db["carts"]
 class Cart:
-    collection = settings.MONGO_CART_COLLECTION  # Ensure you have this setting in your Django settings
+    collection = cart_collection  # Ensure you have this setting in your Django settings
 
     @staticmethod
     def add_to_cart(user_id, product_id, quantity=1):

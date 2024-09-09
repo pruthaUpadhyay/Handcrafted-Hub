@@ -18,7 +18,7 @@ export const CartProvider = ({ children }) => {
     };
     
 
-    const addToCart = async (productId, quantity = 1) => {
+    const addToCart = async (productId, quantity) => {
         try {
             const response = await axios.post(`http://127.0.0.1:8000/user/cart/add/${productId}/`, { product_id: productId, quantity });
             fetchCart(); // Refresh the cart after adding

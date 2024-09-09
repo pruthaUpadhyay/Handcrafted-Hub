@@ -29,9 +29,10 @@ import AuthProvider from './Context/AuthContext';
 
 function App() {
     return (
-        <AuthProvider>
-        <CartProvider>
+        
             <Router>
+                <AuthProvider>
+        <CartProvider>
                 <div>
                     <Header></Header>
                     <Routes>
@@ -51,9 +52,9 @@ function App() {
                     </Routes>
                     {/* <Footer /> */}
                 </div>
-            </Router>
         </CartProvider>
         </AuthProvider>
+            </Router>
         // <>
         //         <Signup/>
         //         {/* <Home/> */}
