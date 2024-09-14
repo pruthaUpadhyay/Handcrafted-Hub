@@ -1,13 +1,21 @@
-// Header.js
-import React from 'react';
+import React, { useContext } from 'react'; // Add useContext here
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button, Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
-import logo from '../../assets/images/HA-removebg-preview.png'
+import logo from '../../assets/images/HA-removebg-preview.png';
+import { AuthContext } from '../../Context/AuthContext';
 
 // Header.js
 const Header = () => {
-  const loggedIn = false; // Replace with actual authentication logic
+  const { isAuth, logout } = useContext(AuthContext);  // Now useContext will work
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    // Add logout functionality here
+    console.log("User logged out");
+    logout()
+    
+  };
 
   return (
     <header>
@@ -15,11 +23,10 @@ const Header = () => {
         <Container>
           <Navbar.Brand as={Link} to="/">
             <img
-              src= {logo}// Replace with your logo URL
+              src={logo}  // Your logo
               alt="Logo"
               className="logo"
-              
-
+              style={{ width: '150px' }}  // Adjust the size of the logo as per your needs
             />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -56,10 +63,15 @@ const Header = () => {
               <Button variant="outline-success">Search</Button>
             </Form>
 
-            {loggedIn ? (
-              <Nav.Link as={Link} to="/account">
-                <i className="bi bi-person-circle" style={{ fontSize: '1.5rem' }}></i>
-              </Nav.Link>
+            {isAuth ? (
+              <>
+                <Nav.Link as={Link} to="/account">
+                  <i className="bi bi-person-circle" style={{ fontSize: '1.5rem' }}></i>
+                </Nav.Link>
+                <Button variant="outline-danger" onClick={handleLogout}>
+                  Logout
+                </Button>
+              </>
             ) : (
               <Button variant="primary" as={Link} to="/login">
                 Login

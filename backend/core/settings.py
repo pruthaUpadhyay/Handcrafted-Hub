@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from datetime import timedelta
+import datetime
 import os
 from pathlib import Path
 from pymongo import MongoClient
@@ -34,6 +35,13 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',  # Your React app URL
 ]
+# settings.py
+import os
+from django.core.management.utils import get_random_secret_key
+
+# Generate a new key if not set
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', get_random_secret_key())
+
 
 # Allow specific headers
 
@@ -60,14 +68,18 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
      'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',  # Sessions middleware
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',  # CSRF middleware
+    'django.contrib.auth.middleware.AuthenticationMiddleware',  # Authentication middleware
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']  # Add your frontend URL
 
+# Session settings
+SESSION_COOKIE_SECURE = False  # Set to True if using HTTPS in production
 ROOT_URLCONF = 'core.urls'
 
 # TEMPLATES = [
@@ -182,9 +194,10 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'AUTH_HEADER_TYPES': ('Bearer',),
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=15),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=15),
+    
+    'SIGNING_KEY': SECRET_KEY,
 }
 LOGIN_URL = '/api/users/login/'
 

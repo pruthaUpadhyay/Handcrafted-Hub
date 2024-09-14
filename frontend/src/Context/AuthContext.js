@@ -77,11 +77,24 @@ export const AuthProvider = ({ children }) => {
     const [refreshToken, setRefreshToken] = useState(localStorage.getItem('refresh_token'));
     const [isAuth, setIsAuth] = useState(false); 
     // Decode token and update user state
+    const checkTokenExpiration = () => {
+        const token = localStorage.getItem('accessToken');
+        if (token) {
+          const decodedToken = jwtDecode(token);
+          const currentTime = Date.now() / 1000; // Convert to seconds
+          if (decodedToken.exp < currentTime) {
+            // Token has expired
+            localStorage.removeItem('accessToken');
+            window.location.href = '/login';
+          }
+        }
+      };
     useEffect(() => {
         if (accessToken) {
             try {
                 const decoded = jwtDecode(accessToken);
                 setUser(decoded);
+                checkTokenExpiration()
             } catch (error) {
                 console.error('Token decoding error', error);
                 logout(); // Logout if token is invalid
@@ -97,11 +110,13 @@ export const AuthProvider = ({ children }) => {
                 },
             });
             // Handle successful login
+            
             const { access, refresh } = response.data;
+            console.log(access)
             setAccessToken(access);
-            setRefreshToken(refresh);
-            localStorage.setItem('access_token', access);
-            localStorage.setItem('refresh_token', refresh);
+            // setRefreshToken(refresh);
+            localStorage.setItem('access_token', accessToken);
+            // localStorage.setItem('refresh_token', refresh);
             setUser(jwtDecode(access)); // Decode the JWT to get user info
             setIsAuth(true);
             return response;
@@ -111,9 +126,6 @@ export const AuthProvider = ({ children }) => {
     };
     
            
-      
-    
-
     const signup = async (username, email, password) => {
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/users/signup/', { username, email, password },{headers: {
@@ -144,4 +156,3 @@ export const AuthProvider = ({ children }) => {
 
 export default AuthProvider;
 export { AuthContext };
-

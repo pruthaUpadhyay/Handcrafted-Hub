@@ -1,90 +1,104 @@
-from django.http import JsonResponse
-from django.views.decorators.http import require_http_methods
-from bson.objectid import ObjectId
-from pymongo import MongoClient
-from django.contrib.auth.decorators import login_required
-from core import settings
+import jwt
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 from .models import Cart
-from django.views.decorators.csrf import csrf_exempt
+from products.models import Product
+from django.conf import settings
+from pymongo import MongoClient
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
+class CartView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    def post(self, request):
+        token = request.headers.get('Authorization')
+        print(f"Received token: {token}")  # Debug print
+        if token:
+            try:
+                token = token.split(' ')[1]  # Remove "Bearer" prefix
+                decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+                user_id = decoded_token.get('user_id')
+                
+                if not user_id:
+                    return Response({"error": "Token does not contain user_id"}, status=status.HTTP_401_UNAUTHORIZED)
 
-@csrf_exempt
-@require_http_methods(["GET"])
-def get_cart(request):
-    user_id = request.user.id  # Assumes you have user authentication in place
-    cart_items = Cart.get_cart_by_user(user_id)
-    cart_list = list(cart_items)
-    
-    # Convert the MongoDB objects to JSON serializable format
-    for item in cart_list:
-        item['_id'] = str(item['_id'])
-        item['product_id'] = str(item['product_id'])
-    
-    return JsonResponse(cart_list, safe=False)
+                client = MongoClient(settings.MONGO_URI)
+                db = client[settings.MONGO_DB_NAME]
+                cart_collection = db["cart"]
 
+                product_id = request.data.get('product_id')
+                quantity = request.data.get('quantity', 1)
 
-@csrf_exempt
-@require_http_methods(["POST"])
-# def add_to_cart(request, product_id):
-#     user_id = request.user.id
-#     quantity = request.POST.get('quantity', 1)
-    
-#     # Add the product to the cart
-#     Cart.add_to_cart(user_id, product_id, quantity)
-    
-#     return JsonResponse({"message": "Product added to cart"}, status=201)
-# def add_to_cart(request, product_id):
-#     user_id = request.user.id  # Get the logged-in user's ID
-    
-#     # Ensure quantity is an integer and greater than 0
-#     try:
-#         quantity = int(request.POST.get('quantity', 1))
-#         if quantity < 1:
-#             raise ValueError("Quantity must be at least 1")
-#     except (ValueError, TypeError):
-#         return JsonResponse({"error": "Invalid quantity"}, status=400)
-    
-#     # Add the product to the cart
-#     Cart.add_to_cart(user_id, product_id, quantity)
-    
-#     return JsonResponse({"message": "Product added to cart"}, status=201)
-@login_required(login_url='/login/')
-def add_to_cart(request, product_id):
-    if not request.user.is_authenticated:
-        return JsonResponse({"error": "You must be logged in to add items to the cart"}, status=403)
-    
-    user_id = request.user.id
-    try:
-        quantity = int(request.POST.get('quantity', 1))
-        if quantity < 1:
-            raise ValueError("Quantity must be at least 1")
-    except (ValueError, TypeError):
-        return JsonResponse({"error": "Invalid quantity"}, status=400)
-    
-    Cart.add_to_cart(user_id, product_id, quantity)
-    return JsonResponse({"message": "Product added to cart"}, status=201)
+                product = db["products"].find_one({"_id": product_id})
+                if not product:
+                    return Response({"error": "Product not found"}, status=status.HTTP_404_NOT_FOUND)
 
-@csrf_exempt
-@require_http_methods(["PUT"])
-def update_cart_item(request, cart_item_id):
-    quantity = request.POST.get('quantity')
-    
-    # Update the quantity of the cart item
-    Cart.update_cart_item(cart_item_id, {'quantity': quantity})
-    
-    return JsonResponse({"message": "Cart item updated"})
+                cart = cart_collection.find_one({"user_id": user_id})
+                if not cart:
+                    cart = {"user_id": user_id, "products": []}
+                    cart_collection.insert_one(cart)
 
-@csrf_exempt
-@require_http_methods(["DELETE"])
-def remove_from_cart(request, cart_item_id):
-    Cart.remove_from_cart(cart_item_id)
-    
-    return JsonResponse({"message": "Cart item removed"})
+                cart_collection.update_one(
+                    {"user_id": user_id, "products.product_id": product_id},
+                    {"$set": {"products.$.quantity": quantity}},
+                    upsert=True
+                )
+                return Response({"message": "Product added to cart"}, status=status.HTTP_200_OK)
+            except jwt.ExpiredSignatureError:
+                return Response({"error": "Token has expired"}, status=status.HTTP_401_UNAUTHORIZED)
+            except jwt.InvalidTokenError:
+                return Response({"error": "Invalid token"}, status=status.HTTP_401_UNAUTHORIZED)
+            except Exception as e:
+                print(f"Unexpected error: {e}")
+                return Response({"error": "Internal server error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            return Response({"error": "Authentication token missing"}, status=status.HTTP_401_UNAUTHORIZED)
 
-@csrf_exempt
-@require_http_methods(["DELETE"])
-def clear_cart(request):
-    user_id = request.user.id
-    Cart.clear_cart(user_id)
-    
-    return JsonResponse({"message": "Cart cleared"})
+        
+class FetchCartView(APIView):
+
+    def get(self, request):
+        token = request.headers.get('Authorization')
+        if token:
+            try:
+                # Decode JWT to get user ID
+                token = token.split(' ')[1]  # Remove "Bearer" prefix
+                decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+                user_id = decoded_token['user_id']
+                
+                # Connect to MongoDB
+                client = MongoClient(settings.MONGO_URI)
+                db = client[settings.MONGO_DB_NAME]
+                cart_collection = db["cart"]
+
+                # Retrieve the user's cart from MongoDB
+                cart = cart_collection.find_one({"user_id": user_id})
+                
+                if not cart or not cart.get("products", []):
+                    return Response({"message": "Your cart is empty"}, status=status.HTTP_200_OK)
+                
+                # Fetch product details for each item in the cart
+                products = cart.get("products", [])
+                product_collection = db["products"]
+
+                cart_items = []
+                for item in products:
+                    product = product_collection.find_one({"_id": item["product_id"]})
+                    if product:
+                        cart_items.append({
+                            "product_id": str(product["_id"]),
+                            "name": product["name"],
+                            "price": product["price"],
+                            "quantity": item["quantity"],
+                        })
+
+                return Response({"cart_items": cart_items}, status=status.HTTP_200_OK)
+
+            except jwt.ExpiredSignatureError:
+                return Response({"error": "Token has expired"}, status=status.HTTP_401_UNAUTHORIZED)
+            except jwt.InvalidTokenError:
+                return Response({"error": "Invalid token"}, status=status.HTTP_401_UNAUTHORIZED)
+
+        return Response({"error": "Authentication token missing"}, status=status.HTTP_401_UNAUTHORIZED)

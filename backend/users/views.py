@@ -49,10 +49,6 @@ class SignUpView(APIView):
 class LoginView(APIView):
     permission_classes = [AllowAny]
 
-    def get(self, request):
-        # This is for handling GET requests, typically when a user is redirected
-        return Response({"message": "Please login with a POST request"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
@@ -69,29 +65,21 @@ class LoginView(APIView):
 
             if user and check_password(password, user['password']):
                 # If the user exists and the password matches
-                # Manually create JWT tokens
-                access_token_expiry = datetime.utcnow() + timedelta(minutes=5)
-                refresh_token_expiry = datetime.utcnow() + timedelta(days=7)
+                # Only create an access token, no refresh token
+                access_token_expiry = datetime.utcnow() + timedelta(hours=1)  # Extend expiry time
 
                 access_token = jwt.encode({
                     'user_id': str(user['_id']),
                     'exp': access_token_expiry
                 }, settings.SECRET_KEY, algorithm='HS256')
 
-                refresh_token = jwt.encode({
-                    'user_id': str(user['_id']),
-                    'exp': refresh_token_expiry
-                }, settings.SECRET_KEY, algorithm='HS256')
-
                 return Response({
-                    "refresh": refresh_token,
                     "access": access_token,
                 }, status=status.HTTP_200_OK)
             
             return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class PasswordResetRequestView(APIView):
     def post(self, request):
