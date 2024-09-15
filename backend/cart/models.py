@@ -12,14 +12,16 @@ class Cart:
     collection = cart_collection  # Ensure you have this setting in your Django settings
 
     @staticmethod
-    def add_to_cart(user_id, product_id, quantity=1):
+    def add_to_cart(user_id, product_id, quantity, selectedSize):
+        print(f"Adding to cart: user_id={user_id}, product_id={product_id}, quantity={quantity}, size={selectedSize}")  # Log the size
         cart_item = {
-
             "user_id": ObjectId(user_id),
             "product_id": ObjectId(product_id),
             "quantity": quantity,
+            "size": selectedSize,
         }
         return Cart.collection.insert_one(cart_item)
+
 
     @staticmethod
     def get_cart_by_user(user_id):

@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Category from './pages/Category/Category';
 import Cart from './pages/Cart/Cart';
+import MyAccount from './pages/MyAccount/MyAccount';
+
 
 import ProductDetail from './pages/ProductDetail/ProductDetail';
 import Header from './components/Header/Header';
@@ -18,6 +20,7 @@ import Login from '../src/components/auth/Login';
 
 import SignUp from '../src/components/auth/Signup';
 import AuthProvider from './Context/AuthContext';
+import { WishlistProvider } from './Context/WishlistContext';
 
 
 // import NewArrivals from './components/NewArrivals';
@@ -29,32 +32,36 @@ import AuthProvider from './Context/AuthContext';
 
 function App() {
     return (
-        
-            <Router>
-                <AuthProvider>
-        <CartProvider>
-                <div>
-                    <Header></Header>
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/signup" element={<SignUp />} />
-                        <Route path="/category" element={<Category />} />
-                        <Route path="/products/:slug" element={<ProductDetail />} />
-                        <Route path="/cart" element={<Cart />} />
 
-                        {/*<Route path="/newarrivals" element={<NewArrivals />} />
+        <Router>
+            <AuthProvider>
+                <CartProvider>
+                    <WishlistProvider>
+                        <div>
+                            <Header></Header>
+                            <Routes>
+                                <Route path="/" element={<Home />} />
+                                <Route path="/login" element={<Login />} />
+                                <Route path="/signup" element={<SignUp />} />
+                                <Route path="/category" element={<Category />} />
+                                <Route path="/products/:slug" element={<ProductDetail />} />
+                                <Route path="/cart" element={<Cart />} />
+                                <Route path="/my-account" element={<MyAccount />} />
+
+
+                                {/*<Route path="/newarrivals" element={<NewArrivals />} />
                     <Route path="/testimonials" element={<Testimonials />} />
                     <Route path="/govnews" element={<GovNews />} />
                     <Route path="/categories" element={<Categories />} />
                     <Route path="/product/:id" element={<Product />} />
                     <Route path="/statehandicrafts" element={<StateHandicrafts />} /> */}
-                    </Routes>
-                    {/* <Footer /> */}
-                </div>
-        </CartProvider>
-        </AuthProvider>
-            </Router>
+                            </Routes>
+                            {/* <Footer /> */}
+                        </div>
+                    </WishlistProvider>
+                </CartProvider>
+            </AuthProvider>
+        </Router>
         // <>
         //         <Signup/>
         //         {/* <Home/> */}

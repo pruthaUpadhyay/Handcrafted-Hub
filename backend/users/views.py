@@ -15,6 +15,12 @@ from rest_framework.permissions import AllowAny
 from django.contrib.auth.hashers import check_password
 from pymongo import MongoClient
 from django.conf import settings
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.views import View
+from django.views.decorators.http import require_GET
+
     
 class SignUpView(APIView):
     permission_classes = [AllowAny]
@@ -72,7 +78,7 @@ class LoginView(APIView):
                     'user_id': str(user['_id']),
                     'exp': access_token_expiry
                 }, settings.SECRET_KEY, algorithm='HS256')
-
+                print(access_token)
                 return Response({
                     "access": access_token,
                 }, status=status.HTTP_200_OK)
@@ -109,3 +115,16 @@ class PasswordResetView(APIView):
                 return Response({"message": "Password reset successfully"}, status=status.HTTP_200_OK)
             return Response({"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@require_GET
+def user_details(request):
+    user_id = request.GET.get('user_id')
+    if user_id:
+        user = User.get_user_by_id(user_id)
+        if user:
+            return JsonResponse({
+                'username': user.get('username'),
+                'email': user.get('email'),
+                # Include other fields as needed
+            })
+    return JsonResponse({'error': 'User not found'}, status=404)

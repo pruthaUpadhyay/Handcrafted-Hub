@@ -1,104 +1,287 @@
-import jwt
+# from bson import ObjectId
+# from rest_framework.views import APIView
+# from rest_framework.response import Response
+# from rest_framework import status
+# from pymongo import MongoClient
+# from django.conf import settings
+# from rest_framework.permissions import AllowAny
+
+# from bson import ObjectId
+# from rest_framework.views import APIView
+# from rest_framework.response import Response
+# from rest_framework import status
+# from pymongo import MongoClient
+# from django.conf import settings
+# from rest_framework.permissions import AllowAny
+
+# class CartView(APIView):
+#     permission_classes = [AllowAny]
+
+#     def post(self, request):
+#         product_id = request.data.get('product_id')
+#         quantity = request.data.get('quantity', 1)
+#         user_id = request.data.get('user_id')
+
+#         if not product_id or not user_id:
+#             return Response({"error": "Product ID and user ID are required"}, status=status.HTTP_400_BAD_REQUEST)
+
+#         # Connect to MongoDB
+#         client = MongoClient(settings.MONGO_URI)
+#         db = client[settings.MONGO_DB_NAME]
+#         cart_collection = db["carts"]
+#         product_collection = db["products"]
+
+#         # Convert product_id and user_id to ObjectId
+#         try:
+#             product_id = ObjectId(product_id)
+#             user_id = ObjectId(user_id)
+#         except Exception as e:
+#             return Response({"error": "Invalid ID format"}, status=status.HTTP_400_BAD_REQUEST)
+
+#         # Check if the product exists
+#         product = product_collection.find_one({"_id": product_id})
+#         if not product:
+#             return Response({"error": "Product not found"}, status=status.HTTP_404_NOT_FOUND)
+
+#         # Retrieve or create a cart for the user
+#         cart = cart_collection.find_one({"user_id": user_id})
+#         if not cart:
+#             cart = {"user_id": user_id, "products": []}
+#             cart_collection.insert_one(cart)
+
+#         # Update or add the product in the cart
+#         result = cart_collection.update_one(
+#             {"user_id": user_id, "products.product_id": product_id},
+#             {"$set": {"products.$.quantity": quantity}},
+#             upsert=False
+#         )
+
+#         if result.matched_count == 0:
+#             # Product was not found in the cart, add it
+#             cart_collection.update_one(
+#                 {"user_id": user_id},
+#                 {"$push": {"products": {"product_id": product_id, "quantity": quantity}}},
+#                 upsert=True
+#             )
+
+#         return Response({"message": "Product added to cart"}, status=status.HTTP_200_OK)
+
+
+
+# class FetchCartView(APIView):
+#     def get(self, request):
+#         user_id = request.GET.get('user_id')  # Get user_id from query parameters
+
+#         if not user_id:
+#             return Response({"error": "User ID is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+#         # Connect to MongoDB
+#         client = MongoClient(settings.MONGO_URI)
+#         db = client[settings.MONGO_DB_NAME]
+#         cart_collection = db["cart"]
+#         product_collection = db["products"]
+
+#         # Retrieve the user's cart from MongoDB
+#         cart = cart_collection.find_one({"user_id": str(user_id)})
+        
+#         if not cart or not cart.get("products", []):
+#             return Response({"message": "Your cart is empty"}, status=status.HTTP_200_OK)
+        
+#         # Fetch product details for each item in the cart
+#         products = cart.get("products", [])
+#         cart_items = []
+#         for item in products:
+#             product = product_collection.find_one({"_id": item["product_id"]})
+#             if product:
+#                 cart_items.append({
+#                     "product_id": str(product["_id"]),
+#                     "name": product["name"],
+#                     "price": product["price"],
+#                     "quantity": item["quantity"],
+#                 })
+
+#         return Response({"cart_items": cart_items}, status=status.HTTP_200_OK)
+from bson import ObjectId
+from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Cart
-from products.models import Product
-from django.conf import settings
 from pymongo import MongoClient
-from rest_framework.permissions import IsAuthenticated
-from rest_framework_simplejwt.authentication import JWTAuthentication
+from django.conf import settings
+from rest_framework.permissions import AllowAny
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+
 
 class CartView(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
+
     def post(self, request):
-        token = request.headers.get('Authorization')
-        print(f"Received token: {token}")  # Debug print
-        if token:
-            try:
-                token = token.split(' ')[1]  # Remove "Bearer" prefix
-                decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
-                user_id = decoded_token.get('user_id')
-                
-                if not user_id:
-                    return Response({"error": "Token does not contain user_id"}, status=status.HTTP_401_UNAUTHORIZED)
+        product_id = request.data.get('product_id')
+        quantity = request.data.get('quantity', 1)
+        user_id = request.data.get('user_id')
+        size = request.data.get('size')
 
-                client = MongoClient(settings.MONGO_URI)
-                db = client[settings.MONGO_DB_NAME]
-                cart_collection = db["cart"]
+        if not product_id or not user_id:
+            return Response({"error": "Product ID and user ID are required"}, status=status.HTTP_400_BAD_REQUEST)
 
-                product_id = request.data.get('product_id')
-                quantity = request.data.get('quantity', 1)
+        # Connect to MongoDB
+        client = MongoClient(settings.MONGO_URI)
+        db = client[settings.MONGO_DB_NAME]
+        cart_collection = db["carts"]
+        product_collection = db["products"]
 
-                product = db["products"].find_one({"_id": product_id})
-                if not product:
-                    return Response({"error": "Product not found"}, status=status.HTTP_404_NOT_FOUND)
+        # Convert product_id and user_id to ObjectId
+        try:
+            product_id = ObjectId(product_id)
+            user_id = ObjectId(user_id)
+        except Exception as e:
+            return Response({"error": "Invalid ID format"}, status=status.HTTP_400_BAD_REQUEST)
 
-                cart = cart_collection.find_one({"user_id": user_id})
-                if not cart:
-                    cart = {"user_id": user_id, "products": []}
-                    cart_collection.insert_one(cart)
+        # Check if the product exists
+        product = product_collection.find_one({"_id": product_id})
+        if not product:
+            return Response({"error": "Product not found"}, status=status.HTTP_404_NOT_FOUND)
 
-                cart_collection.update_one(
-                    {"user_id": user_id, "products.product_id": product_id},
-                    {"$set": {"products.$.quantity": quantity}},
-                    upsert=True
-                )
-                return Response({"message": "Product added to cart"}, status=status.HTTP_200_OK)
-            except jwt.ExpiredSignatureError:
-                return Response({"error": "Token has expired"}, status=status.HTTP_401_UNAUTHORIZED)
-            except jwt.InvalidTokenError:
-                return Response({"error": "Invalid token"}, status=status.HTTP_401_UNAUTHORIZED)
-            except Exception as e:
-                print(f"Unexpected error: {e}")
-                return Response({"error": "Internal server error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        else:
-            return Response({"error": "Authentication token missing"}, status=status.HTTP_401_UNAUTHORIZED)
+        # Retrieve or create a cart for the user
+        cart = cart_collection.find_one({"user_id": user_id})
+        if not cart:
+            cart = {"user_id": user_id, "products": []}
+            cart_collection.insert_one(cart)
 
-        
+        # Update or add the product in the cart
+        result = cart_collection.update_one(
+            {"user_id": user_id, "products.product_id": product_id},
+            {"$set": {"products.$.quantity": quantity ,"products.$.size" : size}},
+            upsert=False
+        )
+
+        if result.matched_count == 0:
+            # Product was not found in the cart, add it
+            cart_collection.update_one(
+                {"user_id": user_id},
+                {"$push": {"products": {"product_id": product_id, "quantity": quantity}}},
+                upsert=True
+            )
+
+        return Response({"message": "Product added to cart"}, status=status.HTTP_200_OK)
 class FetchCartView(APIView):
+    permission_classes = [AllowAny]
 
-    def get(self, request):
-        token = request.headers.get('Authorization')
-        if token:
-            try:
-                # Decode JWT to get user ID
-                token = token.split(' ')[1]  # Remove "Bearer" prefix
-                decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
-                user_id = decoded_token['user_id']
-                
-                # Connect to MongoDB
-                client = MongoClient(settings.MONGO_URI)
-                db = client[settings.MONGO_DB_NAME]
-                cart_collection = db["cart"]
+    def post(self, request):
+        user_id = request.data.get('user_id')
 
-                # Retrieve the user's cart from MongoDB
-                cart = cart_collection.find_one({"user_id": user_id})
-                
-                if not cart or not cart.get("products", []):
-                    return Response({"message": "Your cart is empty"}, status=status.HTTP_200_OK)
-                
-                # Fetch product details for each item in the cart
-                products = cart.get("products", [])
-                product_collection = db["products"]
+        if not user_id:
+            return Response({"error": "User ID is required"}, status=status.HTTP_400_BAD_REQUEST)
 
-                cart_items = []
-                for item in products:
-                    product = product_collection.find_one({"_id": item["product_id"]})
-                    if product:
-                        cart_items.append({
-                            "product_id": str(product["_id"]),
-                            "name": product["name"],
-                            "price": product["price"],
-                            "quantity": item["quantity"],
-                        })
+        # Connect to MongoDB
+        client = MongoClient(settings.MONGO_URI)
+        db = client[settings.MONGO_DB_NAME]
+        cart_collection = db["carts"]
+        product_collection = db["products"]
 
-                return Response({"cart_items": cart_items}, status=status.HTTP_200_OK)
+        # Convert user_id to ObjectId
+        try:
+            user_id = ObjectId(user_id)
+        except Exception:
+            return Response({"error": "Invalid User ID format"}, status=status.HTTP_400_BAD_REQUEST)
 
-            except jwt.ExpiredSignatureError:
-                return Response({"error": "Token has expired"}, status=status.HTTP_401_UNAUTHORIZED)
-            except jwt.InvalidTokenError:
-                return Response({"error": "Invalid token"}, status=status.HTTP_401_UNAUTHORIZED)
+        # Fetch the user's cart
+        cart = cart_collection.find_one({"user_id": user_id})
+        if not cart:
+            return Response({"cart_items": []}, status=status.HTTP_200_OK)
 
-        return Response({"error": "Authentication token missing"}, status=status.HTTP_401_UNAUTHORIZED)
+        cart_items = []
+        for item in cart["products"]:
+            product_id = item["product_id"]
+            quantity = item["quantity"]
+            size = item.get("size")
+
+            # Fetch product details from the products collection
+            product = product_collection.find_one({"_id": product_id})
+            if product:
+                # Convert ObjectId fields to strings for JSON serialization
+                cart_items.append({
+                    "product_id": str(product_id),
+                    "product_name": product.get("name", "Unknown Product"),
+                    "quantity": quantity,
+                    "price": product.get("price", 0),
+                    "size": size
+                })
+
+        return Response({"cart_items": cart_items}, status=status.HTTP_200_OK)
+
+class UpdateCartItemView(APIView):
+    permission_classes = [AllowAny]
+
+    def put(self, request, cart_item_id):
+        quantity = request.data.get('quantity')
+
+        if not quantity:
+            return Response({"error": "Quantity is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Connect to MongoDB
+        client = MongoClient(settings.MONGO_URI)
+        db = client[settings.MONGO_DB_NAME]
+        cart_collection = db["carts"]
+
+        # Update the cart item quantity
+        result = cart_collection.update_one(
+            {"products._id": ObjectId(cart_item_id)},
+            {"$set": {"products.$.quantity": quantity}}
+        )
+
+        if result.modified_count == 0:
+            return Response({"error": "Cart item not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({"message": "Cart item updated"}, status=status.HTTP_200_OK)
+    
+@csrf_exempt
+def remove_from_cart(request, cart_item_id):
+    if request.method == "DELETE":
+        try:
+            client = MongoClient(settings.MONGO_URI)
+            db = client[settings.MONGO_DB_NAME]
+            cart_collection = db["carts"]
+
+            # Check if the cart item ID is valid
+            cart_item_id = ObjectId(cart_item_id)
+
+            # Remove the specific product from the cart
+            result = cart_collection.update_one(
+                {"products.product_id": cart_item_id},
+                {"$pull": {"products": {"product_id": cart_item_id}}}
+            )
+
+            if result.modified_count > 0:
+                return JsonResponse({"message": "Product removed from cart successfully"}, status=200)
+            else:
+                return JsonResponse({"error": "Product not found in the cart"}, status=404)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+    else:
+        return JsonResponse({"error": "Invalid request method"}, status=400)
+class ClearCartView(APIView):       
+    permission_classes = [AllowAny]
+
+    def delete(self, request):
+        user_id = request.data.get('user_id')
+
+        if not user_id:
+            return Response({"error": "User ID is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Connect to MongoDB
+        client = MongoClient(settings.MONGO_URI)
+        db = client[settings.MONGO_DB_NAME]
+        cart_collection = db["carts"]
+
+        # Clear the user's cart
+        result = cart_collection.update_one(
+            {"user_id": ObjectId(user_id)},
+            {"$set": {"products": []}}
+        )
+
+        if result.modified_count == 0:
+            return Response({"error": "Cart not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({"message": "Cart cleared"}, status=status.HTTP_200_OK)
