@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -65,3 +66,25 @@ class ProductDeleteView(APIView):
         if delete_result.deleted_count > 0:
             return Response({"message": "Product deleted"}, status=status.HTTP_204_NO_CONTENT)
         return Response({"error": "Product not found"}, status=status.HTTP_404_NOT_FOUND)
+
+# In your Django view, update the logic to filter by category
+from pymongo import MongoClient
+
+# Connect to MongoDB
+collection = settings.MONGO_PRODUCT_COLLECTION
+
+
+def get_products(request):
+    category = request.GET.get('category') # Get category from query parameters
+    query = {}
+    if category:
+        query = {'category': category}
+    
+    products = collection.find(query)
+    products_list = list(products)
+
+    # Convert ObjectId to string for JSON serialization
+    for product in products_list:
+        product['_id'] = str(product['_id'])
+    
+    return JsonResponse(products_list, safe=False)

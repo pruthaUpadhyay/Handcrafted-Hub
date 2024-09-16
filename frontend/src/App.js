@@ -43,7 +43,9 @@ function App() {
                                 <Route path="/" element={<Home />} />
                                 <Route path="/login" element={<Login />} />
                                 <Route path="/signup" element={<SignUp />} />
-                                <Route path="/category" element={<Category />} />
+                                <Route path="/category/men/:categoryType" element={<Category />} />
+                                <Route path="/category/women/:categoryType" element={<Category />} />
+                                <Route path="/category/home-decor/:categoryType" element={<Category />} />
                                 <Route path="/products/:slug" element={<ProductDetail />} />
                                 <Route path="/cart" element={<Cart />} />
                                 <Route path="/my-account" element={<MyAccount />} />

@@ -27,7 +27,7 @@ function Home() {
       <About/>
       <SocialReview/>
       {/* <Category/>  */}
-      <Cart/>
+      
       
       <Footer/>
     </div>

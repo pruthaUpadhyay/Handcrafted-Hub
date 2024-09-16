@@ -1,9 +1,10 @@
-/* Header.css */
+/* Header Logo */
 .logo {
   height: 50px;
   width: 100%;
 }
 
+/* General Navbar Styling */
 .navbar-nav .nav-link {
   font-weight: 500;
   color: #333;
@@ -15,18 +16,81 @@
   color: #007bff;
 }
 
+/* Remove the dropdown arrow for all dropdowns */
+.navbar-nav .dropdown-toggle::after {
+  display: none !important;
+}
+
+/* General Dropdown Menu Styling */
 .navbar-nav .dropdown-menu {
-  border-radius: 0;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.form-control {
-  border-radius: 0;
+.navbar-nav .dropdown-item {
+  font-size: 1rem;
+  /* padding: 0.75rem 1.25rem; */
+  color: #333;
 }
 
-.btn-outline-success {
-  border-radius: 0;
+.navbar-nav .dropdown-item:hover {
+  background-color: #f1f1f1;
+  color: #007bff;
 }
 
+/* Search bar styling */
+.search-input {
+  border-radius: 25px;
+  padding: 0.5rem 1rem;
+}
+
+.search-btn {
+  border-radius: 25px;
+  padding: 0.5rem 1rem;
+}
+
+/* User Dropdown Avatar Styling */
+.avatar-toggle {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  color: #333;
+}
+
+.avatar-toggle:hover {
+  color: #007bff;
+}
+
+.user-dropdown .dropdown-toggle::after {
+  display: none;
+}
+
+/* Dropdown Menu for Account and Logout */
+.user-dropdown .dropdown-menu {
+  border-radius: 8px;
+  margin-top: 0.5rem;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-dropdown .dropdown-item {
+  font-size: 1rem;
+  padding: 0.75rem 1.25rem;
+  color: #333;
+}
+
+.user-dropdown .dropdown-item:hover {
+  background-color: #f1f1f1;
+  color: #007bff;
+}
+
+/* Button Customizations */
+.login-btn {
+  padding: 0.5rem 1.25rem;
+  border-radius: 25px;
+}
+
+/* Media Queries for Mobile */
 @media (max-width: 767px) {
   .navbar-nav {
     margin-top: 10px;

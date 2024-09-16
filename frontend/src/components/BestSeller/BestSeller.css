@@ -119,3 +119,30 @@
 .section-p1 {
     padding: 40px 80px;
 }
+.price-wishlist {
+    display: flex;
+    align-items: center;
+    gap: 100px; /* Space between price and icon */
+}
+
+.price-wishlist h4 {
+    margin: 0;
+    font-size: 1.5rem; /* Adjust as needed */
+}
+
+.wishlist-icon {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem; /* Adjust the size as needed */
+    color: #563f3d; /* Adjust the color to fit your theme */
+    transition: color 0.3s ease;
+}
+
+.wishlist-icon:hover {
+    color: #ff3b3b; /* Color on hover */
+}
+
+.wishlist-icon.in-wishlist {
+    color: #ff3b3b; /* Color when the item is in the wishlist */
+}

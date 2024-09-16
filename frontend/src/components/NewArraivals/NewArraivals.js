@@ -1,18 +1,32 @@
-import React from "react";
+
 import './NewArraivals.css'
+import React, { useState, useEffect, useContext } from 'react';
+import { Link } from "react-router-dom";
+import { WishlistContext } from '../../Context/WishlistContext';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
+
 
 export default function NewArraivals() {
-    const products = [
-        { id: 1, name: "Product 1", image: "image1.jpg" },
-        { id: 2, name: "Product 2", image: "image2.jpg" },
-        { id: 3, name: "Product 3", image: "image3.jpg" },
-    ];
+    const [products, setProducts] = useState([]);
+    const { wishlistItems, toggleWishlist } = useContext(WishlistContext);
 
+    // Fetch products from the API
+    useEffect(() => {
+        fetch('http://127.0.0.1:8000/products/') // Replace with your API endpoint
+            .then(response => response.json())  
+            .then(data => {
+                // Filter products that have the "Best Seller" tag
+                const newCollProducts = data.filter(product => product.isNew || (product.tags && product.tags.includes("New collection")));
+                setProducts(newCollProducts);
+            })
+            .catch(error => console.error('Error fetching products:', error));
+    }, []);
     return (
         <div>
             <section className="most_loved_section section is-width-wide has-gutter-enabled custom_section">
                 <div className="heading_most_loved secHead page-width">
                     <h2 className="main_heading text-center">
+                        {/* SVG Title */}
                         {/* SVG Title */}
                         <svg xmlns="http://www.w3.org/2000/svg" width="291.021" height="39.193" viewBox="0 0 291.021 39.193">
                             <g id="Group_11269" data-name="Group 11269" transform="translate(0.982 2.485)">
@@ -53,140 +67,47 @@ export default function NewArraivals() {
                         </svg>
                     </h2>
                 </div>
-                <section id="product1" class="section-p1">
-                    <div class="pro-container">
-                        <div class="pro">
-                            <img src="https://i.postimg.cc/76X9ZV8m/Screenshot_from_2022-06-03_18-45-12.png" alt="" />
-                            <div class="des">
-                                <span>Adidas</span>
-                                <h5>Cartoon Astronaut T-Shirts</h5>
-                                <div class="star">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
+                <section id="product1" className="section-p1">
+                    <div className="pro-container">
+                        {products.map(product => {
+                            // Check if the product is in the wishlist
+                            const isInWishlist = wishlistItems.some(item => item.product_id === product._id);
+
+                            return (
+                                <div className="pro" key={product._id}>
+                                    <Link to={`/products/${product.slug}`}>
+                                        <img src={process.env.PUBLIC_URL + product.images[0]} alt={product.name} />
+                                    </Link>
+                                    <div className="des">
+                                        <span>{product.brand}</span>
+                                        <h5>{product.name}</h5>
+                                        <div className="star">
+                                            {[...Array(5)].map((_, index) => (
+                                                <i
+                                                    key={index}
+                                                    className={index < product.rating ? 'bx bxs-star' : 'bx bx-star'}
+                                                />
+                                            ))}
+                                        </div>
+                                        <div className="price-wishlist">
+                                            <h4>₹{product.price}</h4>
+                                            <button
+                                                className={`wishlist-icon ${isInWishlist ? 'in-wishlist' : ''}`}
+                                                onClick={() => toggleWishlist(product._id, product.name)}
+                                                aria-label={isInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'}
+                                            >
+                                                {isInWishlist ? <FaHeart /> : <FaRegHeart />}
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <h4>$78</h4>
-                            </div>
-                            <a href="#"><i class='bx bx-cart cart'></i></a>
-                        </div>
-                        <div class="pro">
-                            <img src="https://i.postimg.cc/76X9ZV8m/Screenshot_from_2022-06-03_18-45-12.png" alt="" />
-                            <div class="des">
-                                <span>Adidas</span>
-                                <h5>Cartoon Astronaut T-Shirts</h5>
-                                <div class="star">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                </div>
-                                <h4>$78</h4>
-                            </div>
-                            <a href="#"><i class='bx bx-cart cart'></i></a>
-                        </div>
-                        <div class="pro">
-                            <img src="https://i.postimg.cc/76X9ZV8m/Screenshot_from_2022-06-03_18-45-12.png" alt="" />
-                            <div class="des">
-                                <span>Adidas</span>
-                                <h5>Cartoon Astronaut T-Shirts</h5>
-                                <div class="star">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                </div>
-                                <h4>$78</h4>
-                            </div>
-                            <a href="#"><i class='bx bx-cart cart'></i></a>
-                        </div>
-                        <div class="pro">
-                            <img src="https://i.postimg.cc/76X9ZV8m/Screenshot_from_2022-06-03_18-45-12.png" alt="" />
-                            <div class="des">
-                                <span>Adidas</span>
-                                <h5>Cartoon Astronaut T-Shirts</h5>
-                                <div class="star">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                </div>
-                                <h4>$78</h4>
-                            </div>
-                            <a href="#"><i class='bx bx-cart cart'></i></a>
-                        </div>
-                        <div class="pro">
-                            <img src="https://i.postimg.cc/76X9ZV8m/Screenshot_from_2022-06-03_18-45-12.png" alt="" />
-                            <div class="des">
-                                <span>Adidas</span>
-                                <h5>Cartoon Astronaut T-Shirts</h5>
-                                <div class="star">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                </div>
-                                <h4>$78</h4>
-                            </div>
-                            <a href="#"><i class='bx bx-cart cart'></i></a>
-                        </div>
-                        <div class="pro">
-                            <img src="https://i.postimg.cc/76X9ZV8m/Screenshot_from_2022-06-03_18-45-12.png" alt="" />
-                            <div class="des">
-                                <span>Adidas</span>
-                                <h5>Cartoon Astronaut T-Shirts</h5>
-                                <div class="star">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                </div>
-                                <h4>$78</h4>
-                            </div>
-                            <a href="#"><i class='bx bx-cart cart'></i></a>
-                        </div>
-                        <div class="pro">
-                            <img src="https://i.postimg.cc/76X9ZV8m/Screenshot_from_2022-06-03_18-45-12.png" alt="" />
-                            <div class="des">
-                                <span>Adidas</span>
-                                <h5>Cartoon Astronaut T-Shirts</h5>
-                                <div class="star">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                </div>
-                                <h4>$78</h4>
-                            </div>
-                            <a href="#"><i class='bx bx-cart cart'></i></a>
-                        </div>
-                        <div class="pro">
-                            <img src="https://i.postimg.cc/76X9ZV8m/Screenshot_from_2022-06-03_18-45-12.png" alt="" />
-                            <div class="des">
-                                <span>Adidas</span>
-                                <h5>Cartoon Astronaut T-Shirts</h5>
-                                <div class="star">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                </div>
-                                <h4>$78</h4>
-                            </div>
-                            <a href="#"><i class='bx bx-cart cart'></i></a>
-                        </div>
+                            );
+                        })}
                     </div>
                 </section>
             </section>
         </div>
+
     );
 }
 

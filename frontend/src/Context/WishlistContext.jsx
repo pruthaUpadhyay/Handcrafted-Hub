@@ -44,7 +44,6 @@ export const WishlistProvider = ({ children }) => {
         }
       );
       fetchWishlist(); // Refresh the wishlist after adding
-      alert('Item added to wishlist');
     } catch (error) {
       console.error('Error adding to wishlist:', error.response?.data || error);
     }
@@ -73,6 +72,17 @@ export const WishlistProvider = ({ children }) => {
       console.error('Error removing from wishlist:', error.response?.data || error);
     }
   };
+  const toggleWishlist = async (productId, productName) => {
+    const isInWishlist = wishlistItems.some(item => item.product_id === productId);
+  
+    if (isInWishlist) {
+      // Remove from wishlist if it exists
+      await removeFromWishlist(productId);
+    } else {
+      // Add to wishlist if it doesn't exist
+      await addToWishlist(productId, productName);
+    }
+  };
 
   useEffect(() => {
     if (user) {
@@ -87,6 +97,7 @@ export const WishlistProvider = ({ children }) => {
         addToWishlist,
         removeFromWishlist,
         fetchWishlist,
+        toggleWishlist,
       }}
     >
       {children}

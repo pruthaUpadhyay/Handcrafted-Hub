@@ -1,16 +1,555 @@
-{
-    "name": "Indigo Red Ajrakh Block Printed Cotton Flared Gher Kurta",
-    "price": "3,450.00",
-    "description": "Ajrakh Block Printed Cotton Flared Gher Kurta with Pant Set 01",    
-    "category": "Traditional",
-    "stock": 100,
-    "tags": "Most Loved",
-    "slug":"indigo-red-ajrakh-block-printed-cotton-flared-gher-kurta",
-    "has_sizes": true,
-    "sizes": [
-        "S",
-        "M",
-        "L"
-    ],
-    "images":["/images/W2-1.webp", "/images/W2-2.webp", "/images/W2-3.webp"] 
-}
+[
+    {
+        "name": "Indigo Red Ajrakh Block Printed Cotton Flared Gher Kurta",
+        "price": "3,450.00",
+        "description": "Ajrakh Block Printed Cotton Flared Gher Kurta with Pant Set 01",
+        "category": "Kurti",
+        "stock": 100,
+        "tags": "Most Loved",
+        "slug": "indigo-red-ajrakh-block-printed-cotton-flared-gher-kurta",
+        "has_sizes": true,
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "images": [
+            "/images/W2-1.webp",
+            "/images/W2-2.webp",
+            "/images/W2-3.webp"
+        ]
+    },
+    {
+        "name": "Black - Ajrakh Block Printed Cotton Straight Kurta",
+        "price": "2,190.00",
+        "description": "Black - Ajrakh Block Printed Cotton Straight Kurta 11",
+        "category": "Kurti",
+        "stock": 100,
+        "tags": "Best Seller",
+        "slug": "black-ajrakh-block-printed-cotton-straight-kurta",
+        "has_sizes": true,
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "images": [
+            "/images/W1.webp",
+            "/images/W1-2.webp",
+            "/images/W1-3.webp"
+        ]
+    },
+    {
+        "name": "Blue - Bandhani Tie-dye Modal Silk Long Straight Kurta",
+        "price": "2,590.00",
+        "description": "Blue - Bandhani Tie-dye Modal Silk Long Straight Kurta 12",
+        "category": "Kurti",
+        "stock": 100,
+        "tags": "",
+        "slug": "blue-bandhani-tie-dye-modal-silk-long-straight-kurta",
+        "has_sizes": true,
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "images": [
+            "/images/W3-1.webp",
+            "/images/W3-2-2.webp",
+            "/images/W3-3.webp"
+        ]
+    },
+    {
+        "name": "Dark Green - Bandhani Tie-dye Cotton Long Straight Kurta ",
+        "price": "1,950.00",
+        "description": "Dark Green - Bandhani Tie-dye Cotton Long Straight Kurta 11",
+        "category": "Kurti",
+        "stock": 100,
+        "tags": "New collection",
+        "slug": "dark-green-bandhani-tie-dye-cotton-long-straight-kurta",
+        "has_sizes": true,
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "images": [
+            "/images/W4-1.webp",
+            "/images/W4-2.webp",
+            "/images/W4-3.webp"
+        ]
+    },
+    {
+        "name": "Blue - Bandhani Block Printed Ajrakh Modal Silk Saree",
+        "price": "9,980.00",
+        "description": "Blue - Bandhani Block Printed Ajrakh Modal Silk Saree 03",
+        "category": "Saree",
+        "stock": 80,
+        "tags": "",
+        "slug": "blue-bandhani-block-printed-ajrakh-modal-silk-saree",
+        "has_sizes": false,
+        "images": [
+            "/images/W5-1.webp",
+            "/images/W5-2.webp",
+            "/images/W5-3.webp"
+        ]
+    },
+    {
+        "name": "Black - Begampuri Handloom Cotton Saree",
+        "price": "2,190.00",
+        "description": "Black - Begampuri Handloom Cotton Saree",
+        "category": "Saree",
+        "stock": 20,
+        "tags": "New collection",
+        "slug": "black-begampuri-handloom-cotton-saree",
+        "has_sizes": false,
+        "images": [
+            "/images/W6-1.webp",
+            "/images/W6-2.webp",
+            "/images/W6-3.webp"
+        ]
+    },
+    {
+        "name": "Blue - Bengal Kantha Hand Embroidery Handloom Cotton Saree with Tassels",
+        "price": "8,900.00",
+        "description": "Blue - Bengal Kantha Hand Embroidery Handloom Cotton Saree with Tassels 09",
+        "category": "Saree",
+        "stock": 20,
+        "tags": "",
+        "slug": "blue-bengal-kantha-hand-embroidery-handloom-cotton-saree-with-tassels",
+        "has_sizes": false,
+        "images": [
+            "/images/W7-1.webp",
+            "/images/W7-2.webp",
+            "/images/W7-3.webp"
+        ]
+    },
+    {
+        "name": "Blue - Leheriya Tie-Dye Mothra Kota Doria Silk Saree",
+        "price": "5,590.00",
+        "description": "Blue - Leheriya Tie-Dye Mothra Kota Doria Silk Saree",
+        "category": "Saree",
+        "stock": 90,
+        "tags": "",
+        "slug": "blue-leheriya-tie-dye-mothra-kota-doria-silk-saree",
+        "has_sizes": false,
+        "images": [
+            "/images/W8-1.webp",
+            "/images/W8-2.webp",
+            "/images/W8-3.webp"
+        ]
+    },
+    {
+        "name": "Purple - Banarasi Handloom Pure Katan Silk Kaduwa Zari Buti Saree",
+        "price": "21,900.00",
+        "description": "Purple - Banarasi Handloom Pure Katan Silk Kaduwa Zari Buti Saree",
+        "category": "Saree",
+        "stock": 90,
+        "tags": "",
+        "slug": "purple-banarasi-handloom-pure-katan-silk-kaduwa-zari-buti-saree",
+        "has_sizes": false,
+        "images": [
+            "/images/W9-1.webp",
+            "/images/W9-2.webp",
+            "/images/W9-3.webp"
+        ]
+    },
+    {
+        "name": "Pink - Srikalahasti Kalamkari Pen Work Bangalore Silk Saree",
+        "price": "13,500.00",
+        "description": "Pink - Srikalahasti Kalamkari Pen Work Bangalore Silk Saree",
+        "category": "Saree",
+        "stock": 100,
+        "tags": "",
+        "slug": "pink-srikalahasti-kalamkari-pen-work- bangalore-silk-saree",
+        "has_sizes": false,
+        "images": [
+            "/images/W10-1.webp",
+            "/images/W10-2.webp",
+            "/images/W10-3.webp"
+        ]
+    },
+    {
+        "name": "Black - Dharwad Cotton Kurta with Palazzo & Dupatta",
+        "price": "3,850.00",
+        "description": "Black - Dharwad Cotton Kurta with Palazzo & Dupatta Set 23",
+        "category": "Kurti",
+        "stock": 70,
+        "tags": "",
+        "slug": "black-dharwad-cotton-kurta-with-palazzo -dupatta",
+        "has_sizes": true,
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "images": [
+            "/images/W11-1.webp",
+            "/images/W11-2.webp",
+            "/images/W11-3.webp"
+        ]
+    },
+    {
+        "name": "Multicolor - Ajrakh Block Printed Cotton Men Half Sleeve Shirt",
+        "price": "1,850.00",
+        "description": "Multicolor - Ajrakh Block Printed Cotton Men Half Sleeve Shirt 06",
+        "category": "Casual",
+        "stock": 70,
+        "tags": "Best Seller",
+        "slug": "multicolor-ajrakh-block-printed-cotton-men-half-sleeve-shirt",
+        "has_sizes": true,
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "images": [
+            "/images/M1-1.webp",
+            "/images/M1-2.webp",
+            "/images/M1-3.webp"
+        ]
+    },
+    {
+        "name": "White - Sanganeri Block Printed Cotton Men Half Sleeve Shirt",
+        "price": "1,450.00",
+        "description": "White - Sanganeri Block Printed Cotton Men Half Sleeve Shirt 06",
+        "category": "Casual",
+        "stock": 90,
+        "tags": "Most Loved",
+        "slug": "white-sanganeri-block-printed-cotton-men-half-sleeve-shirt",
+        "has_sizes": true,
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "images": [
+            "/images/M3-1.webp",
+            "/images/M3-2.webp",
+            "/images/M3-3.webp"
+        ]
+    },
+    {
+        "name": "Beige - Geometric Buta Ajrakh Block Printed Cotton Men Full Sleeve Shirt",
+        "price": "1,990.00",
+        "description": "Beige - Geometric Buta Ajrakh Block Printed Cotton Men Full Sleeve Shirt",
+        "category": "Casual",
+        "stock": 90,
+        "tags": "",
+        "slug": "beige-geometric-buta-ajrakh-block-printed-cotton-men-full-sleeve-shirt",
+        "has_sizes": true,
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "images": [
+            "/images/M4-1.webp",
+            "/images/M4-2.webp",
+            "/images/M4-3.webp"
+        ]
+    },
+    {
+        "name": "Blue - Sanganeri Block Printed Cotton Men Full Sleeve Shirt",
+        "price": "1,850.00",
+        "description": "Blue - Sanganeri Block Printed Cotton Men Full Sleeve Shirt 15",
+        "category": "Casual",
+        "stock": 70,
+        "tags": "",
+        "slug": "blue-sanganeri-block-printed-cotton-men-full-sleeve-shirt",
+        "has_sizes": true,
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "images": [
+            "/images/M9-1.webp",
+            "/images/M9-2.webp",
+            "/images/M9-3.webp"
+        ]
+    },
+    {
+        "name": "Blue - Bindaas Block Printed Natural Dyed Cotton Men Half Sleeve Shirt",
+        "price": "1,950.00",
+        "description": "Blue - Bindaas Block Printed Natural Dyed Cotton Men Half Sleeve Shirt",
+        "category": "Casual",
+        "stock": 80,
+        "tags": "",
+        "slug": "blue-bindaas-block-printed-natural-dyed-cotton-men-half-sleeve-shirt",
+        "has_sizes": true,
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "images": [
+            "/images/M5-1.webp",
+            "/images/M5-2.webp"
+        ]
+    },
+    {
+        "name": "Mustard - Yellow Plain Dyed Slub Silk Men Long Kurta",
+        "price": "1,490.00",
+        "description": "Mustard - Yellow Plain Dyed Slub Silk Men Long Kurta",
+        "category": "Traditional",
+        "stock": 30,
+        "tags": "Best Seller",
+        "slug": "mustard-yellow-plain-dyed-slub-silk-men-long-kurta",
+        "has_sizes": true,
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "images": [
+            "/images/M8-1.webp",
+            "/images/M8-2.webp"
+        ]
+    },
+    {
+        "name": "Blue - Akola Block Printed Cotton Men Short Kurta",
+        "price": "1,490.00",
+        "description": "Blue - Akola Block Printed Cotton Men Short Kurta",
+        "category": "Traditional",
+        "stock": 80,
+        "tags": "Most Loved",
+        "slug": "blue-akola-block-printed-cotton-men-short-kurta",
+        "has_sizes": true,
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "images": [
+            "/images/M7-1.webp",
+            "/images/M7-2.webp",
+            "/images/M7-3.webp"
+        ]
+    },
+    
+        {
+            "name": "Black - Plain Handloom Cotton Men Short Kurta",
+            "price": "1,690.00",
+            "description": "Black - Plain Handloom Cotton Men Short Kurta",
+            "category": "Traditional",
+            "stock": 70,
+            "tags": "New collection",
+            "slug": "black-plain-handloom-cotton-men-short-kurta",
+            "has_sizes": true,
+            "sizes": [
+                "S",
+                "M",
+                "L"
+            ],
+            "images": [
+                "/images/M6-1.webp",
+                "/images/M6-3.webp"
+            ]
+        },
+        {
+            "name": "Maroon Bandhani Tie-Dye Cotton Men Long Kurta",
+            "price": "1,790.00",
+            "description": "Maroon Bandhani Tie-Dye Cotton Men Long Kurta",
+            "category": "Traditional",
+            "stock": 90,
+            "tags": "",
+            "slug": "maroon-bandhani-tie-dye-cotton-men-long-kurta",
+            "has_sizes": true,
+            "sizes": [
+                "S",
+                "M",
+                "L"
+            ],
+            "images": [
+                "/images/M2-1.webp",
+                "/images/M2-2.webp",
+                "/images/M2-3.webp"
+            ]
+        },
+        {
+            "name": "Lambani Embroidery Mirror Work Dori Waist Belt",
+            "price": "1,000.00",
+            "description": "Lambani Embroidery Mirror Work Dori Waist Belt / Kamarbandh",
+            "category": "Jewellery",
+            "stock": 10,
+            "tags": "Best Seller",
+            "slug": "lambani-embroidery-mirror-work-dori-waist-belt",
+            "has_sizes": false,
+            "images": [
+                "/images/J4-1.webp",
+                "/images/J4-2.webp"
+            ]
+        },
+        {
+            "name": "Handcrafted Patwa Thread & Ghungroo Work Anklet",
+            "price": "220.00",
+            "description": "Handcrafted Patwa Thread & Ghungroo Work Anklet",
+            "category": "Jewellery",
+            "stock": 5,
+            "tags": "New collection",
+            "slug": "handcrafted-patwa-thread-ghungroo-anklet",
+            "has_sizes": false,
+            "images": [
+                "/images/J5-1.webp",
+                "/images/J5-2.webp"
+            ]
+        },
+        {
+            "name": "Antique Finish Oxidised White Metal Necklace",
+            "price": "1,000.00",
+            "description": "Antique Finish Oxidised White Metal Necklace",
+            "category": "Jewellery",
+            "stock": 10,
+            "tags": "Most Loved",
+            "slug": "antique-finish-oxidised-white-metal-necklace",
+            "has_sizes": false,
+            "images": [
+                "/images/J1-1.webp",
+                "/images/J1-2.webp",
+                "/images/J3-2.webp"
+            ]
+        },
+        {
+            "name": "Antique Finish Oxidised White Metal Jhumki Earrings",
+            "price": "200.00",
+            "description": "Antique Finish Oxidised White Metal Jhumki Earrings",
+            "category": "Jewellery",
+            "stock": 10,
+            "tags": "",
+            "slug": "antique-finish-oxidised-white-metal-jhumki-earrings",
+            "has_sizes": false,
+            "images": [
+                "/images/J2-1.webp"
+            ]
+        },
+        {
+            "name": "Lavanya Handcrafted GS Beadwork Jhumki Earrings",
+            "price": "1,000.00",
+            "description": "Lavanya Handcrafted GS Beadwork Jhumki Earrings",
+            "category": "Jewellery",
+            "stock": 4,
+            "tags": "",
+            "slug": "lavanya-handcrafted-gs-beadwork-jhumki-earrings",
+            "has_sizes": false,
+            "images": [
+                "/images/J4-1.webp",
+                "/images/J4-2.webp"
+            ]
+        },
+        {
+            "name": "Black & Grey Handstitched Leather Kolhapuri Men Slipper",
+            "price": "1,000.00",
+            "description": "Black & Grey Handstitched Leather Kolhapuri Men Slipper",
+            "category": "Footwear",
+            "stock": 10,
+            "tags": "",
+            "slug": "black-grey-handstitched-leather-kolhapuri-slipper",
+            "has_sizes": false,
+            "images": [
+                "/images/F1-1.webp",
+                "/images/F1-2.webp",
+                "/images/F1-3.webp"
+            ]
+        },
+        {
+            "name": "Brandy - Kolhapuri Handmade Leather Loafer for Men",
+            "price": "2,000.00",
+            "description": "Brandy - Kolhapuri Handmade Leather Loafer for Men",
+            "category": "Footwear",
+            "stock": 15,
+            "tags": "",
+            "slug": "brandy-kolhapuri-handmade-leather-loafer",
+            "has_sizes": false,
+            "images": [
+                "/images/F3-1.webp",
+                "/images/F3-2.webp"
+            ]
+        },
+        {
+            "name": "Brown & Yellow Handstitched Leather Kolhapuri Men Sandal",
+            "price": "1,500.00",
+            "description": "Brown & Yellow Handstitched Leather Kolhapuri Men Sandal",
+            "category": "Footwear",
+            "stock": 10,
+            "tags": "",
+            "slug": "brown-yellow-handstitched-leather-kolhapuri-sandal",
+            "has_sizes": false,
+            "images": [
+                "/images/F2-1.webp",
+                "/images/F2-2.webp",
+                "/images/F2-3.webp"
+            ]
+        },
+        {
+            "name": "Sarswati - The Phad Painting",
+            "price": "2,500.00",
+            "description": "Sarswati - The Phad Painting",
+            "category": "Home",
+            "stock": 30,
+            "tags": "",
+            "slug": "sarswati-the-phad-painting",
+            "has_sizes": false,
+            "images": [
+                "/images/H3-1.webp",
+                "/images/H3-2.webp"
+            ]
+        },
+        {
+            "name": "Chirping Birds' Hanging Pendant Lamp Shade",
+            "price": "800.00",
+            "description": "Chirping Birds' Hanging Pendant Lamp Shade (8.1 Inches, Handcrafted)",
+            "category": "Home",
+            "stock": 20,
+            "tags": "",
+            "slug": "chirping-birds-hanging-pendant-lamp-shade",
+            "has_sizes": false,
+            "images": [
+                "/images/H5-1.webp",
+                "/images/H5-2.webp"
+            ]
+        },
+        {
+            "name": "Wall Decor Warli Painting Framed with Glass",
+            "price": "4,500.00",
+            "description": "Wall Decor Warli Painting Framed with Glass",
+            "category": "Home",
+            "stock": 30,
+            "tags": "",
+            "slug": "wall-decor-warli-painting-framed-glass",
+            "has_sizes": false,
+            "images": [
+                "/images/H4-1.webp",
+                "/images/H4-2.webp"
+            ]
+        },
+        {
+            "name": "Brown - Ajrakh Block Printing Patchwork Cotton Door Curtain",
+            "price": "2,500.00",
+            "description": "Brown - Ajrakh Block Printing Patchwork Cotton Door Curtain (7 x 3 Feet)",
+            "category": "Home",
+            "stock": 20,
+            "tags": "",
+            "slug": "brown-ajrakh-block-printing-cotton-door-curtain",
+            "has_sizes": false,
+            "images": [
+                "/images/H1-1.webp",
+                "/images/H1-2.webp"
+            ]
+        },
+        {
+            "name": "Reversible Ajrakh Printed Patch With Tagai Cotton Gudri",
+            "price": "2,500.00",
+            "description": "Reversible Ajrakh Printed Patch With Tagai Cotton Gudri / AC Quilt (108 x 90 in)",
+            "category": "Home",
+            "stock": 10,
+            "tags": "",
+            "slug": "reversible-ajrakh-patch-cotton-gudri",
+            "has_sizes": false,
+            "images": [
+                "/images/H2-1.webp",
+                "/images/H2-2.webp"
+            ]
+        }
+    
+]
