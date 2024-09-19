@@ -26,6 +26,16 @@ class Product:
             "created_at": datetime.datetime.utcnow()
         }
         return Product.collection.insert_one(product)
+    @staticmethod
+    def search_product_by_name_or_description(query):
+        # Use $or to search in both 'name' and 'description' fields for any product
+        return Product.collection.find({
+            "$or": [
+                {"name": {"$regex": query, "$options": "i"}},
+                {"description": {"$regex": query, "$options": "i"}}
+            ]
+        })
+
 
     @staticmethod
     def get_best_sellers():

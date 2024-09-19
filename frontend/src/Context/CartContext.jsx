@@ -416,7 +416,11 @@ export const CartProvider = ({ children }) => {
     try {
       await axios.delete(
         'http://127.0.0.1:8000/user/cart/clear/'
-      );
+      ,
+      {data : {
+        user_id: user.user_id,
+      }}
+    );
       setCartItems([]); // Clear the cart state
     } catch (error) {
       console.error('Error clearing cart:', error.response?.data || error);

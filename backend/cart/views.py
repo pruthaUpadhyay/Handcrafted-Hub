@@ -261,7 +261,7 @@ def remove_from_cart(request, cart_item_id):
             return JsonResponse({"error": str(e)}, status=500)
     else:
         return JsonResponse({"error": "Invalid request method"}, status=400)
-class ClearCartView(APIView):       
+class ClearCartView(APIView):
     permission_classes = [AllowAny]
 
     def delete(self, request):
@@ -270,18 +270,29 @@ class ClearCartView(APIView):
         if not user_id:
             return Response({"error": "User ID is required"}, status=status.HTTP_400_BAD_REQUEST)
 
+        # Convert user_id to ObjectId
+        try:
+            user_id = ObjectId(user_id)
+        except Exception as e:
+            return Response({"error": "Invalid User ID format"}, status=status.HTTP_400_BAD_REQUEST)
+
         # Connect to MongoDB
         client = MongoClient(settings.MONGO_URI)
         db = client[settings.MONGO_DB_NAME]
         cart_collection = db["carts"]
 
+        # Check if the cart exists
+        cart = cart_collection.find_one({"user_id": user_id})
+        if not cart:
+            return Response({"error": "Cart not found"}, status=status.HTTP_404_NOT_FOUND)
+
         # Clear the user's cart
         result = cart_collection.update_one(
-            {"user_id": ObjectId(user_id)},
+            {"user_id": user_id},
             {"$set": {"products": []}}
         )
 
         if result.modified_count == 0:
-            return Response({"error": "Cart not found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Cart not found or already cleared"}, status=status.HTTP_404_NOT_FOUND)
 
         return Response({"message": "Cart cleared"}, status=status.HTTP_200_OK)

@@ -21,6 +21,9 @@ import Login from '../src/components/auth/Login';
 import SignUp from '../src/components/auth/Signup';
 import AuthProvider from './Context/AuthContext';
 import { WishlistProvider } from './Context/WishlistContext';
+import SearchResults from './pages/SearchResults/SearchResults';
+import CheckoutPage from './pages/Checkout/Checkout';
+import Testimonials from './pages/Testimonials/Testimonials';
 
 
 // import NewArrivals from './components/NewArrivals';
@@ -49,6 +52,10 @@ function App() {
                                 <Route path="/products/:slug" element={<ProductDetail />} />
                                 <Route path="/cart" element={<Cart />} />
                                 <Route path="/my-account" element={<MyAccount />} />
+                                
+                                <Route path="/testimonials" element={<Testimonials/>} />
+
+                                {/* <Route path="/order-confirmation" component={OrderConfirmationPage} /> */}
 
 
                                 {/*<Route path="/newarrivals" element={<NewArrivals />} />

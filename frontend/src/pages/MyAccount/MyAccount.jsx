@@ -337,17 +337,21 @@ import {
   MDBIcon,
   MDBCard,
   MDBCardBody,
+  MDBModalBody,
+  MDBModalHeader,
+  MDBModal,
 } from "mdb-react-ui-kit";
 import "./MyAccount.css"; // Create this file for additional custom styles
 import { WishlistContext } from "../../Context/WishlistContext";
 
 
 const MyAccount = () => {
-  const { fetchCart, cartItems, removeFromCart, updateCartItem } = useContext(CartContext);
+  const { fetchCart, cartItems, removeFromCart, updateCartItem,clearCart } = useContext(CartContext);
   const { user, accessToken } = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
   const [total, setTotal] = useState(0);
   const { wishlistItems, fetchWishlist, removeFromWishlist } = useContext(WishlistContext);
+  const [showPaymentSuccess, setShowPaymentSuccess] = useState(false);
 
   const getUserDataFromToken = (token) => {
     try {
@@ -370,7 +374,29 @@ const MyAccount = () => {
     });
     return total;
   };
-
+  const handlePaymentConfirmation = async () => {
+    try {
+      // Create the order and handle payment
+      const response = await axios.post(
+        `http://127.0.0.1:8000/api/orders/`,
+        {
+          user_id: getUserDataFromToken(accessToken),
+          total: total + 2.99, // Total including shipping
+          shipping_address: userData?.address || "Not Provided",
+          cart_items: cartItems,
+        },
+        
+      );
+      
+      if (response.status === 200) {
+        setShowPaymentSuccess(true);
+        clearCart(); // Clear the cart after successful order creation
+      }
+      setShowPaymentSuccess(false)
+    } catch (error) {
+      console.error("Error placing order:", error);
+    }
+  };
   useEffect(() => {
     fetchWishlist(); // Fetch wishlist items on component mount
   }, []);
@@ -403,125 +429,115 @@ const MyAccount = () => {
 
   return (
     <section className="h-100 h-custom">
-      <MDBContainer className="py-5 h-100">
+      <div className="container py-5 h-100">
         {/* User Info */}
         <div className="user-info bg-light rounded-lg p-4 mb-5 text-center">
-          <FaUserCircle className="text-5xl text-gray-600 mb-3" />
           <h2 className="text-2xl font-bold">{userData?.username || "Loading..."}</h2>
           <p className="text-gray-500">{userData?.email || "Loading..."}</p>
         </div>
 
-        {/* Cart Table */}
-        <MDBRow className="justify-content-center align-items-center">
-          <MDBCol lg="8">
-            <MDBTable responsive className="cart-table">
-              <MDBTableHead className="bg-light">
-                <tr>
-                  <th scope="col" className="h5">Product</th>
-                  <th scope="col">Size</th>
-                  <th scope="col">Quantity</th>
-                  <th scope="col">Price</th>
-                  <th scope="col">Actions</th>
-                </tr>
-              </MDBTableHead>
-              <MDBTableBody>
-                {cartItems.map((item) => (
-                  <tr key={item._id}>
-                    <th scope="row">
-                      <div className="d-flex align-items-center">
-                        <div className="product-img-wrapper">
-                          {/* Optional: Add product image here */}
-                        </div>
-                        <div className="flex-column ms-3">
-                          <p className="mb-2 font-bold">{item.product_name}</p>
-                          <p className="mb-0 text-muted">{item.product_description}</p>
-                        </div>
-                      </div>
-                    </th>
-                    <td className="align-middle">
-                      <p className="mb-0">{item.size || "N/A"}</p>
-                    </td>
-                    <td className="align-middle">
-                      <div className="d-flex align-items-center">
-                        <MDBBtn
-                          size="sm"
-                          className="px-2"
-                          color="link"
-                          onClick={() => updateCartItem(item._id, item.quantity - 1)}
-                          disabled={item.quantity === 1}
-                        >
-                          <MDBIcon fas icon="minus" />
-                        </MDBBtn>
-                        <MDBInput min={1} type="number" size="sm" value={item.quantity} readOnly />
-                        <MDBBtn
-                          size="sm"
-                          className="px-2"
-                          color="link"
-                          onClick={() => updateCartItem(item._id, item.quantity + 1)}
-                        >
-                          <MDBIcon fas icon="plus" />
-                        </MDBBtn>
-                      </div>
-                    </td>
-                    <td className="align-middle">₹{item.price}</td>
-                    <td className="align-middle">
-                      <MDBBtn color="danger" onClick={() => removeFromCart(item.product_id)}>
-                        Remove
-                      </MDBBtn>
-                    </td>
-                  </tr>
-                ))}
-              </MDBTableBody>
-            </MDBTable>
+        <div className="row">
+          {/* Left Column for Wishlist and Cart */}
+          <div className="col-lg-8 col-md-12">
             {/* Wishlist Section */}
-        <MDBRow className="justify-content-center align-items-center mt-5">
-          <MDBCol lg="8">
-            <MDBTable responsive className="wishlist-table">
-              <MDBTableHead className="bg-light">
-                <tr>
-                  <th scope="col" className="h5">Product</th>
-                  <th scope="col">Actions</th>
-                </tr>
-              </MDBTableHead>
-              <MDBTableBody>
-                {wishlistItems.length > 0 ? (
-                  wishlistItems.map((item) => (
-                    <tr key={item.product_id}>
-                      <th scope="row">
-                        <div className="d-flex align-items-center">
-                          <div className="product-img-wrapper">
-                            {/* Optional: Add product image here */}
-                          </div>
-                          <div className="flex-column ms-3">
-                            <p className="mb-2 font-bold">{item.product_name}</p>
-                            <p className="mb-0 text-muted">{item.product_description}</p>
-                          </div>
-                        </div>
-                      </th>
-                      <td className="align-middle">
-                        <MDBBtn color="danger" onClick={() => removeFromWishlist(item.product_id)}>
-                          Remove
-                        </MDBBtn>
-                      </td>
+            <div className="card shadow-sm mb-4">
+              <div className="card-body">
+                <h5 className="mb-4">Wishlist</h5>
+                <table className="table table-responsive wishlist-table">
+                  <thead className="bg-light">
+                    <tr>
+                      <th scope="col">Wishlist</th>
+                      <th scope="col">Actions</th>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="2" className="text-center">Your wishlist is empty.</td>
-                  </tr>
-                )}
-              </MDBTableBody>
-            </MDBTable>
-          </MDBCol>
-        </MDBRow>
-          </MDBCol>
-                
+                  </thead>
+                  <tbody>
+                    {wishlistItems.length > 0 ? (
+                      wishlistItems.map((item) => (
+                        <tr key={item.product_id}>
+                          <td>
+                            <div className="d-flex align-items-center">
+                              <div className="flex-column ms-3">
+                                <p className="mb-2 font-bold">{item.product_name}</p>
+                                <p className="mb-0 text-muted">{item.product_description}</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <button className="btn btn-danger" onClick={() => removeFromWishlist(item.product_id)}>
+                              Remove
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="2" className="text-center">Your wishlist is empty.</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
-          {/* Checkout Section */}
-          <MDBCol lg="4" className="mt-4 mt-lg-0">
-            <MDBCard className="checkout-card shadow-2-strong mb-4">
-              <MDBCardBody className="p-4">
-                <h5 className="mb-3">Summary</h5>
+            {/* Cart Section */}
+            <div className="card shadow-sm">
+              <div className="card-body">
+                <h5 className="mb-4">Cart</h5>
+                <table className="table table-responsive cart-table">
+                  <thead className="bg-light">
+                    <tr>
+                      <th scope="col">Cart</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {cartItems.length > 0 ? (
+                      cartItems.map((item) => (
+                        <tr key={item._id}>
+                          <td>
+                            <div className="d-flex align-items-center">
+                              <div className="flex-column ms-3">
+                                <p className="mb-2 font-bold">{item.product_name}</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="d-flex align-items-center">
+                              <button className="btn btn-link" onClick={() => updateCartItem(item._id, item.quantity - 1)} disabled={item.quantity === 1}>
+                                -
+                              </button>
+                              <input type="number" min="1" value={item.quantity} readOnly />
+                              <button className="btn btn-link" onClick={() => updateCartItem(item._id, item.quantity + 1)}>
+                                +
+                              </button>
+                            </div>
+                          </td>
+                          <td>₹{item.price}</td>
+                          <td>
+                            <button className="btn btn-danger" onClick={() => removeFromCart(item._id)}>
+                              Remove
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="4" className="text-center">Your cart is empty.</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column for Checkout */}
+          <div className="col-lg-4 col-md-12 mt-4 mt-lg-0">
+            <div className="card checkout-card shadow-2-strong">
+              <div className="card-body">
+                <h5 className="mb-3">Checkout</h5>
                 <div className="d-flex justify-content-between mb-3">
                   <p className="mb-0">Subtotal</p>
                   <p className="mb-0">₹{total.toFixed(2)}</p>
@@ -535,17 +551,35 @@ const MyAccount = () => {
                   <h6 className="mb-0">Total</h6>
                   <h6 className="mb-0">₹{(total + 2.99).toFixed(2)}</h6>
                 </div>
-                <MDBBtn block size="lg" color="dark">
-                  Checkout
-                </MDBBtn>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
+                <button className="btn btn-dark btn-lg btn-block" onClick={handlePaymentConfirmation}>
+                  Confirm Payment
+                </button>
+              </div>
+            </div>
 
-        </MDBRow>
-        
-      </MDBContainer>
+            {showPaymentSuccess && (
+              <div className="modal" style={{ display: 'block' }}>
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title">Payment Successful</h5>
+                      <button type="button" className="close" onClick={() => setShowPaymentSuccess(false)}>
+                        ×
+                      </button>
+                    </div>
+                    <div className="modal-body">
+                      Your payment has been confirmed successfully!
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </section>
+
+
   );
 };
 

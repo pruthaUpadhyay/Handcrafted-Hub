@@ -28,22 +28,18 @@ const Header = () => {
     };
 
     return (
+
         <header>
-            <Navbar bg="light" expand="md" className="shadow-sm header-navbar">
-                <Container>
-                    <Navbar.Brand as={Link} to="/">
-                        <img
-                            src={logo}
-                            alt="Logo"
-                            className="logo"
-                            style={{ width: '150px' }} // Adjust the logo size as needed
-                        />
+            <Navbar expand="md" className="custom-navbar shadow-sm">
+                {/* <Container> */}
+                    <Navbar.Brand as={Link} to="/" className="brand-name">
+                        HANDCRAFTED HUB
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             {/* MEN Dropdown */}
-                            <NavDropdown title="MEN" id="men-nav-dropdown">
+                            <NavDropdown title="MEN" id="men-nav-dropdown" className="custom-dropdown">
                                 <NavDropdown.Item onClick={() => handleMenNavigation('Casual')}>
                                     Casual
                                 </NavDropdown.Item>
@@ -56,7 +52,7 @@ const Header = () => {
                             </NavDropdown>
 
                             {/* WOMEN Dropdown */}
-                            <NavDropdown title="WOMEN" id="women-nav-dropdown">
+                            <NavDropdown title="WOMEN" id="women-nav-dropdown" className="custom-dropdown">
                                 <NavDropdown.Item onClick={() => handleWomenNavigation('Kurti')}>
                                     Kurti
                                 </NavDropdown.Item>
@@ -64,41 +60,15 @@ const Header = () => {
                                     Saree
                                 </NavDropdown.Item>
                                 <NavDropdown.Item onClick={() => handleWomenNavigation('Jewellery')}>
-                                    Jewellry
+                                    Jewelry
                                 </NavDropdown.Item>
                             </NavDropdown>
 
-                            {/* KIDS Dropdown
-                            <NavDropdown title="KIDS" id="kids-nav-dropdown">
-                                <NavDropdown.Item onClick={() => handleCategoryNavigation('kids/casual')}>
-                                    Casual
-                                </NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => handleCategoryNavigation('kids/traditional')}>
-                                    Traditional
-                                </NavDropdown.Item>
-                            </NavDropdown> */}
-
                             {/* HOME & DECOR */}
-                            <Nav.Link onClick={() => handleHomeNavigation('Home')}>
+                            <Nav.Link onClick={() => handleHomeNavigation('Home')} className="custom-link">
                                 HOME & DECOR
                             </Nav.Link>
-
-                            {/* CRAFTS */}
-                            {/* <Nav.Link onClick={() => handleCategoryNavigation('crafts')}>
-                                CRAFTS
-                            </Nav.Link> */}
                         </Nav>
-
-                        {/* Search Bar */}
-                        <Form className="d-flex me-3">
-                            <FormControl
-                                type="search"
-                                placeholder="Search"
-                                className="me-2 search-input"
-                                aria-label="Search"
-                            />
-                            <Button variant="outline-success" className="search-btn">Search</Button>
-                        </Form>
 
                         {/* User Avatar or Login */}
                         {isAuth ? (
@@ -117,15 +87,16 @@ const Header = () => {
                                 </Dropdown.Menu>
                             </Dropdown>
                         ) : (
-                            <Button variant="primary" as={Link} to="/login" className="login-btn">
+                            <Button as={Link} to="/login" className="login-btn">
                                 Login
                             </Button>
                         )}
                     </Navbar.Collapse>
-                </Container>
+                {/* </Container> */}
             </Navbar>
         </header>
     );
 };
+
 
 export default Header;

@@ -23,10 +23,7 @@ class Cart:
         return Cart.collection.insert_one(cart_item)
 
 
-    @staticmethod
-    def get_cart_by_user(user_id):
-        return Cart.collection.find({"user_id": ObjectId(user_id)})
-
+    
     @staticmethod
     def update_cart_item(cart_item_id, update_fields):
         return Cart.collection.update_one(
@@ -39,8 +36,12 @@ class Cart:
         return Cart.collection.delete_one({"_id": ObjectId(cart_item_id)})
 
     @staticmethod
+    def get_cart_by_user(user_id):
+        return Cart.collection.find_one({"user_id": user_id})
+
+    @staticmethod
     def clear_cart(user_id):
-        return Cart.collection.delete_many({"user_id": ObjectId(user_id)})
+        return Cart.collection.delete_one({"user_id": user_id})
 
     @staticmethod
     def get_cart_item(cart_item_id):

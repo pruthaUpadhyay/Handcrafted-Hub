@@ -88,3 +88,38 @@ def get_products(request):
         product['_id'] = str(product['_id'])
     
     return JsonResponse(products_list, safe=False)
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+
+
+def search_products(request):
+    if request.method == "GET":
+        # Get the search query from the URL parameters (e.g., ?query=kurti)
+        search_query = request.GET.get('query', '')
+
+        if search_query:
+            # Call the search function from the Product model
+            results = collection.search_product_by_name_or_description(search_query)
+
+            # Prepare a list of products to return
+            products = []
+            for product in results:
+                products.append({
+                    "id": str(product["_id"]),  # Convert ObjectId to string for JSON
+                    "name": product["name"],
+                    "price": product["price"],
+                    "description": product["description"],
+                    "category": product["category"],
+                    "stock": product["stock"],
+                    "has_sizes": product["has_sizes"],
+                    "sizes": product["sizes"],
+                    "tags": product["tags"],
+                    "slug": product["slug"],
+                    "images": product["images"],
+                })
+
+            return JsonResponse({"products": products}, status=200)
+        else:
+            return JsonResponse({"error": "No search query provided"}, status=400)
+
+    return JsonResponse({"error": "Invalid request method"}, status=405)

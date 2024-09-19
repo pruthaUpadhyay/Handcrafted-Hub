@@ -20,7 +20,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Nunito Sans", sans-serif;
     list-style: none;
     text-decoration: none;
 }
@@ -75,7 +75,7 @@
 #product1 .pro .des h5 {
     padding-top: 7px;
     color: #1a1a1a;
-    font-size: 14px;
+    font-size: 17px;
 }
 
 #product1 .pro .des i {
@@ -84,10 +84,11 @@
 }
 
 #product1 .pro .des h4 {
-    padding-top: 7px;
+    padding-top: 10px;
     font-size: 15px;
-    color: #088178;
-    font-weight: 700;
+    color: #CE884B;
+    font-weight: 800;
+    font-family: "Nunito Sans", sans-serif;
 }
 
 #product1 .pro .cart {

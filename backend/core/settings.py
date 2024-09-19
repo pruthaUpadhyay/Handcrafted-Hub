@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'products',
     'cart',
     'wishlist',
+    'order',
    
 ]
 
@@ -161,6 +162,8 @@ MONGO_USER_COLLECTION = mongo_db["users"]
 MONGO_PRODUCT_COLLECTION = mongo_db["products"]
 MONGO_WISHLIST_COLLECTION = mongo_db["whishlist"]
 MONGO_CART_COLLECTION = mongo_db["carts"]
+MONGO_ORDEER_COLLECTION = mongo_db["orders"]
+
 
 
 
