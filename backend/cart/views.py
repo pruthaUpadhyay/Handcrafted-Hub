@@ -101,6 +101,7 @@
 #                 })
 
 #         return Response({"cart_items": cart_items}, status=status.HTTP_200_OK)
+import json
 from bson import ObjectId
 from django.http import JsonResponse
 from rest_framework.views import APIView
@@ -244,9 +245,14 @@ def remove_from_cart(request, product_id):
             if not ObjectId.is_valid(product_id):
                 return JsonResponse({"error": "Invalid product ID"}, status=400)
 
+            # Get the quantity from the request
+            data = json.loads(request.body)  # Parse the body
+            quantity = data.get("quantity", 0)  # Quantity removed from cart
+
             client = MongoClient(settings.MONGO_URI)
             db = client[settings.MONGO_DB_NAME]
             cart_collection = db["carts"]
+            product_collection = db["products"]
 
             # Remove the specific product from the cart
             result = cart_collection.update_one(
@@ -255,14 +261,21 @@ def remove_from_cart(request, product_id):
             )
 
             if result.modified_count > 0:
-                return JsonResponse({"message": "Product removed from cart successfully"}, status=200)
+                # Increase the stock quantity of the product
+                product = product_collection.find_one({"_id": ObjectId(product_id)})
+                if product:
+                    new_stock = product['stock'] + quantity  # Restore the removed quantity
+                    product_collection.update_one(
+                        {"_id": ObjectId(product_id)},
+                        {"$set": {"stock": new_stock}}
+                    )
+                return JsonResponse({"message": "Product removed from cart and stock updated successfully"}, status=200)
             else:
                 return JsonResponse({"error": "Product not found in the cart"}, status=404)
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
     else:
         return JsonResponse({"error": "Invalid request method"}, status=400)
-      
 class ClearCartView(APIView):
     permission_classes = [AllowAny]
 
