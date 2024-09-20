@@ -116,7 +116,7 @@ export default function MostLoved() {
                                         <div className="price-wishlist">
                                             <h4>₹{product.price}</h4>
                                             <button
-                                                className={`wishlist-icon ${isInWishlist ? 'in-wishlist' : ''}`}
+                                                className={`wishlist-icons ${isInWishlist ? 'in-wishlists' : ''}`}
                                                 onClick={() => toggleWishlist(product._id, product.name)}
                                                 aria-label={isInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'}
                                             >

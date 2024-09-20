@@ -1,0 +1,18 @@
+.addToCart {
+    font-family: 'Nunito Sans', sans-serif !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    padding: 10px 20px !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    border: 2px solid #CE884B !important;
+    border-radius: 25px !important;
+    transition: all 0.3s ease !important;
+    margin-right: 50px;
+  }
+  
+  .addToCart:hover {
+    background-color: #CE884B !important;
+    color: white !important;
+  }
+  

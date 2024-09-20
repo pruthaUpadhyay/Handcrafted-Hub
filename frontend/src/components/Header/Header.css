@@ -60,11 +60,13 @@
 
 /* Avatar Toggle Button */
 .avatar-toggle {
+  
   background-color: transparent;
   border: none;
   color: #333;
   cursor: pointer;
   padding: 0;
+  margin-right: 30px;
 }
 
 .avatar-toggle:hover {
@@ -76,6 +78,7 @@
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  
 }
 
 .user-dropdown .dropdown-item {
@@ -88,6 +91,10 @@
   background-color: #CE884B;
   color: white;
 }
+.dropdown-toggle::after {
+  display: none !important; /* Hides the default dropdown arrow */
+}
+
 
 /* Login Button */
 .login-btn {

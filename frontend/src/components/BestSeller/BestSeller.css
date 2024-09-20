@@ -124,7 +124,7 @@
     font-size: 1.5rem; /* Adjust as needed */
 }
 
-.wishlist-icon {
+.wishlist-icons {
     background: transparent;
     border: none;
     cursor: pointer;
@@ -133,10 +133,27 @@
     transition: color 0.3s ease;
 }
 
-.wishlist-icon:hover {
+.wishlist-icons:hover {
     color: #ff3b3b; /* Color on hover */
 }
 
-.wishlist-icon.in-wishlist {
+.wishlist-icons.in-wishlists {
     color: #ff3b3b; /* Color when the item is in the wishlist */
+}
+@media (max-width: 799px) {
+    .price-wishlist {
+        display: flex;
+        align-items: center;
+        gap: 90px;
+    }
+    
+    
+
+}
+@media (max-width:477px){
+    .price-wishlist {
+        display: flex;
+        align-items: center;
+        gap: 90px;
+    }
 }

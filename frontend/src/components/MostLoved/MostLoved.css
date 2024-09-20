@@ -113,6 +113,23 @@
     right: 10px;
 }
 
+.wishlist-icons {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem; /* Adjust the size as needed */
+    color: #563f3d; /* Adjust the color to fit your theme */
+    transition: color 0.3s ease;
+}
+
+.wishlist-icons:hover {
+    color: #ff3b3b; /* Color on hover */
+}
+
+.wishlist-icons.in-wishlists {
+    color: #ff3b3b; /* Color when the item is in the wishlist */
+}
+
 /* Section Styles */
 .section-p1 h1 {
     font-size: 50px;

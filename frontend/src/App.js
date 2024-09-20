@@ -21,8 +21,7 @@ import Login from '../src/components/auth/Login';
 import SignUp from '../src/components/auth/Signup';
 import AuthProvider from './Context/AuthContext';
 import { WishlistProvider } from './Context/WishlistContext';
-import SearchResults from './pages/SearchResults/SearchResults';
-import CheckoutPage from './pages/Checkout/Checkout';
+
 import Testimonials from './pages/Testimonials/Testimonials';
 
 

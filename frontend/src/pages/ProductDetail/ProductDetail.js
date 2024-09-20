@@ -226,16 +226,18 @@ import { useParams } from "react-router-dom";
 import AddToCartButton from "../../components/AddToCartButton/AddToCartButton";
 import axios from 'axios';
 import { MDBBtn } from 'mdb-react-ui-kit';
-import { WishlistContext } from "../../Context/WishlistContext";
-
+import { WishlistContext } from '../../Context/WishlistContext';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import './ProductDetail.css'
 const ProductDetail = () => {
   const { slug } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState(null);
-  const [isInWishlist, setIsInWishlist] = useState(false);
-  const { addToWishlist } = useContext(WishlistContext);
+  // const [isInWishlist, setIsInWishlist] = useState(false);
+  const { wishlistItems, toggleWishlist } = useContext(WishlistContext);
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -270,25 +272,26 @@ const ProductDetail = () => {
       console.log('Decreased quantity:', quantity - 1); // Debugging log
     }
   };
-
+  
   // In the render method
   console.log('Current quantity:', quantity); // Debugging log
-
+  
   const handleSizeSelection = (size) => {
     setSelectedSize(size);
   };
-
+  
   if (loading) {
     return <div>Loading product details...</div>;
   }
-
+  const isInWishlist = wishlistItems.some(item => item.product_id === product._id);
+  
   if (!product) {
     return <div>Product not found.</div>;
   }
-
+  
   const plusMinuceButton =
-    "flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500";
-
+  "flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500";
+  
   return (
     <section className="container flex-grow mx-auto max-w-[1200px] border-b py-5 lg:grid lg:grid-cols-2 lg:py-10">
       <div className="container mx-auto px-4">
@@ -300,7 +303,7 @@ const ProductDetail = () => {
             original: image,
             thumbnail: image,
           }))}
-        />
+          />
       </div>
 
       <div className="mx-auto px-5 lg:px-5">
@@ -325,6 +328,7 @@ const ProductDetail = () => {
         </p>
 
         {product.has_sizes && product.sizes.length > 0 && (
+          
           <div className="mt-6">
             <p className="pb-2 text-xs text-gray-500">Size</p>
             <div className="flex gap-1">
@@ -352,17 +356,20 @@ const ProductDetail = () => {
         </div>
 
         <div className="mt-7 flex flex-row items-center gap-6">
+          <div className="center-container">
           <AddToCartButton
             productId={product._id}
             quantity={quantity}
             selectedSize={selectedSize} // Pass selectedSize to the button component
           />
-          <MDBBtn
-            color="danger"
-            onClick={() => addToWishlist(product._id,product.name)}
-          >
-            Add to Wishlist
-          </MDBBtn>
+            <button
+              className={`wishlist-icon ${isInWishlist ? 'in-wishlist' : ''}`}
+              onClick={() => toggleWishlist(product._id, product.name)}
+              aria-label={isInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'}
+            >
+              {isInWishlist ? <FaHeart /> : <FaRegHeart />} WISHLIST
+            </button>
+          </div>
         </div>
       </div>
     </section>

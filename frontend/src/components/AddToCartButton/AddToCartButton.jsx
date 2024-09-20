@@ -3,6 +3,7 @@ import { AuthContext } from '../../Context/AuthContext'; // Adjust path if neces
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../../Context/CartContext';
+import './AddToCartButton.css'
 
 const AddToCartButton = ({ productId,quantity,selectedSize }) => {
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ const AddToCartButton = ({ productId,quantity,selectedSize }) => {
        addToCart(productId,quantity,selectedSize)
     }
     return (
-        <button onClick={handleAddToCart}>Add to Cart</button>
+        <button onClick={handleAddToCart} className='addToCart'>Add to Cart</button>
     );
 };
 
