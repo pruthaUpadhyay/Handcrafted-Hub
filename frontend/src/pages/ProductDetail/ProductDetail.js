@@ -263,15 +263,26 @@ const ProductDetail = () => {
     }
   }, [slug]);
 
-  const handleQuantityChange = (action) => {
+  const handleQuantityChange = async (action) => {
     if (action === "increase" && quantity < product.stock) {
       setQuantity(quantity + 1);
-      console.log('Increased quantity:', quantity + 1); // Debugging log
+      await updateStock(product._id, 1); // Increment stock by 1
     } else if (action === "decrease" && quantity > 1) {
       setQuantity(quantity - 1);
-      console.log('Decreased quantity:', quantity - 1); // Debugging log
+      await updateStock(product._id, -1); // Decrement stock by 1
     }
   };
+  
+  const updateStock = async (productId, change) => {
+    try {
+      await axios.patch(`http://127.0.0.1:8000/products/${productId}/update-stock/`, {
+        change,
+      });
+    } catch (error) {
+      console.error("Error updating stock:", error);
+    }
+  };
+  
   
   // In the render method
   console.log('Current quantity:', quantity); // Debugging log

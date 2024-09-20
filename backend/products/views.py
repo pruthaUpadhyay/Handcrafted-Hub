@@ -1,12 +1,15 @@
+import json
 from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny
-
+from rest_framework.decorators import api_view,permission_classes
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from django.conf import settings
+
+from .models import Product
 from .serializers import ProductSerializer
 
 # Connect to MongoDB
@@ -80,7 +83,7 @@ def get_products(request):
     if category:
         query = {'category': category}
     
-    products = collection.find(query)
+    products = product_collection.find(query)
     products_list = list(products)
 
     # Convert ObjectId to string for JSON serialization
@@ -92,34 +95,18 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
 
-def search_products(request):
-    if request.method == "GET":
-        # Get the search query from the URL parameters (e.g., ?query=kurti)
-        search_query = request.GET.get('query', '')
-
-        if search_query:
-            # Call the search function from the Product model
-            results = collection.search_product_by_name_or_description(search_query)
-
-            # Prepare a list of products to return
-            products = []
-            for product in results:
-                products.append({
-                    "id": str(product["_id"]),  # Convert ObjectId to string for JSON
-                    "name": product["name"],
-                    "price": product["price"],
-                    "description": product["description"],
-                    "category": product["category"],
-                    "stock": product["stock"],
-                    "has_sizes": product["has_sizes"],
-                    "sizes": product["sizes"],
-                    "tags": product["tags"],
-                    "slug": product["slug"],
-                    "images": product["images"],
-                })
-
-            return JsonResponse({"products": products}, status=200)
+@api_view(['PATCH'])
+@permission_classes([AllowAny])
+def update_product_stock(request, product_id):
+    try:
+        data = request.data
+        change = data.get("change", 0)  # Get the change from the request data
+        result = Product.update_stock(product_id, change)  # Call static method on Product
+        if result.modified_count > 0:
+            return Response({"message": "Stock updated successfully"}, status=200)
         else:
-            return JsonResponse({"error": "No search query provided"}, status=400)
-
-    return JsonResponse({"error": "Invalid request method"}, status=405)
+            return Response({"message": "No stock updated"}, status=400)
+    except ValueError as ve:
+        return Response({"error": str(ve)}, status=400)
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)

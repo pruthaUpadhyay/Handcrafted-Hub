@@ -1,5 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './SocialReview.css';
+import videoFile1 from '../../assets/images/6035535_Woman_People_1280x720.mp4'
+import videoFile3 from '../../assets/images/1471869_People_1280x720.mp4'
+import videoFile2 from '../../assets/images/9347912-uhd_2160_3840_24fps.mp4'
+import videoFile4 from '../../assets/images/8811193-hd_1920_1080_25fps.mp4'
+
+
 
 export default function SocialReview() {
     const [isDragging, setIsDragging] = useState(false);
@@ -58,37 +64,22 @@ export default function SocialReview() {
                     <div className="reelContainer page-width" ref={reelRef}>
                         {/* Desktop and Mobile Video/Thumbnail */}
                         {[{
-                            videoSrc: "https://cdn.shopify.com/videos/c/o/v/aba679da1d9d4bd6b5205e520fc89480.mp4",
-                            link: "https://itokri.com/collections/hot-sellers-of-fabrics",
+                            videoSrc: videoFile1,
+                            link: "/category/home-decor/Home",
                             imgSrc: "//cdn.shopify.com/s/files/1/0155/8131/files/Group_4929_2x_eb31182a-905c-4877-b5f5-1b5405086187.png?v=1664348845&width=150",
                             imgAlt: "Hot Sellers of Fabrics"
                         },
                         {
-                            videoSrc: "https://cdn.shopify.com/videos/c/o/v/a09e80e3af764e758d65e379c595c748.mp4",
-                            link: "https://www.itokri.com/collections/buy-bandhani-or-bandhej-sarees-online",
+                            videoSrc: videoFile3,
+                            link: "/category/women/Kurti",
                             imgSrc: "//cdn.shopify.com/s/files/1/0155/8131/files/Group_4929_2x_eb31182a-905c-4877-b5f5-1b5405086187.png?v=1664348845&width=150",
                             imgAlt: "Bandhani Sarees"
                         }, {
-                            videoSrc: "https://cdn.shopify.com/videos/c/o/v/aba679da1d9d4bd6b5205e520fc89480.mp4",
-                            link: "https://itokri.com/collections/hot-sellers-of-fabrics",
+                            videoSrc: videoFile4,
+                            link: "/category/women/Saree",
                             imgSrc: "//cdn.shopify.com/s/files/1/0155/8131/files/Group_4929_2x_eb31182a-905c-4877-b5f5-1b5405086187.png?v=1664348845&width=150",
                             imgAlt: "Hot Sellers of Fabrics"
-                        }, {
-                            videoSrc: "https://cdn.shopify.com/videos/c/o/v/aba679da1d9d4bd6b5205e520fc89480.mp4",
-                            link: "https://itokri.com/collections/hot-sellers-of-fabrics",
-                            imgSrc: "//cdn.shopify.com/s/files/1/0155/8131/files/Group_4929_2x_eb31182a-905c-4877-b5f5-1b5405086187.png?v=1664348845&width=150",
-                            imgAlt: "Hot Sellers of Fabrics"
-                        },{
-                            videoSrc: "https://cdn.shopify.com/videos/c/o/v/aba679da1d9d4bd6b5205e520fc89480.mp4",
-                            link: "https://itokri.com/collections/hot-sellers-of-fabrics",
-                            imgSrc: "//cdn.shopify.com/s/files/1/0155/8131/files/Group_4929_2x_eb31182a-905c-4877-b5f5-1b5405086187.png?v=1664348845&width=150",
-                            imgAlt: "Hot Sellers of Fabrics"
-                        },{
-                            videoSrc: "https://cdn.shopify.com/videos/c/o/v/aba679da1d9d4bd6b5205e520fc89480.mp4",
-                            link: "https://itokri.com/collections/hot-sellers-of-fabrics",
-                            imgSrc: "//cdn.shopify.com/s/files/1/0155/8131/files/Group_4929_2x_eb31182a-905c-4877-b5f5-1b5405086187.png?v=1664348845&width=150",
-                            imgAlt: "Hot Sellers of Fabrics"
-                        }].map((item, index) => (
+                        }, ].map((item, index) => (
                             <div key={index} className={`column thumbnail has-gutter has-gutter--mobile list-collection__thumbnail medium-down--one-whole 'desktop' : 'mobile'} custom_reel`}>
                                 <div className="product-wrap enable-zoom-true">
                                     <div className="thumbnail image__container has-image-crop">

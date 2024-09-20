@@ -372,7 +372,7 @@ export const CartProvider = ({ children }) => {
   };
 
   // Remove item from the cart
-  const removeFromCart = async (cartItemId) => {
+  const removeFromCart = async (productId) => {
     if (!user) {
       alert('Please log in to remove items from your cart.');
       navigate('/login');
@@ -387,16 +387,17 @@ export const CartProvider = ({ children }) => {
       return;
     }
 
+    
     try {
-      await axios.delete(
-        `http://127.0.0.1:8000/user/cart/remove/${cartItemId}/`
+      const response = await axios.delete(
+          `http://127.0.0.1:8000/user/cart/remove/${productId}/`
       );
+      console.log("Response:", response.data); // Log the response to confirm success
       fetchCart(); // Refresh the cart after removal
-    } catch (error) {
+  } catch (error) {
       console.error('Error removing item from cart:', error.response?.data || error);
-    }
-  };
-
+  }
+}
   // Clear the cart
   const clearCart = async () => {
     if (!user) {

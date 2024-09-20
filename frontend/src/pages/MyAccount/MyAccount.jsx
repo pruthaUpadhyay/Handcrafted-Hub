@@ -21,12 +21,11 @@
 //   }
 // };
 
-
 //   useEffect(() => {
-    
+
 //     const fetchUserDetails = async () => {
 //         const userId = getUserDataFromToken(accessToken); // Decode the token to get user ID
-  
+
 //         if (userId) {
 //           try {
 //             const response = await axios.get(`http://127.0.0.1:8000/api/users/user-details/?user_id=${userId}`, {
@@ -40,7 +39,7 @@
 //           }
 //         }
 //       };
-  
+
 //       fetchUserDetails();
 //     }, [accessToken]);
 
@@ -146,21 +145,18 @@
 //       // Clean the price by removing commas and converting it to a float
 //       const cleanedPrice = parseFloat(item.price.replace(/,/g, ''));
 //       const quantity = parseInt(item.quantity, 10); // Ensure quantity is an integer
-  
+
 //       if (!isNaN(cleanedPrice) && !isNaN(quantity)) {
 //         total += cleanedPrice * quantity; // Multiply cleaned price by quantity for each item
 //       }
 //     });
 //     return total;
 //   };
-  
-  
-  
 
 //   useEffect(() => {
 //     const calculatedTotal = calculateTotal();
 //     setTotal(calculatedTotal);
-//   }, [cartItems]); 
+//   }, [cartItems]);
 
 //   useEffect(() => {
 //     const fetchUserDetails = async () => {
@@ -222,7 +218,7 @@
 //                   <tr key={item._id}>
 //                     <th scope="row">
 //                       <div className="d-flex align-items-center">
-                        
+
 //                         <div className="flex-column ms-4">
 //                           <p className="mb-2">{item.product_name}</p>
 //                           <p className="mb-0">{item.product_description}</p>
@@ -269,7 +265,7 @@
 //                       </p>
 //                     </td>
 //                     <td className="align-middle">
-                        
+
 //                       <MDBBtn color="danger" onClick={() => removeFromCart(item.product_id)}>
 //                         Remove
 //                       </MDBBtn>
@@ -321,7 +317,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../Context/CartContext";
 import { AuthContext } from "../../Context/AuthContext";
-import { FaUserCircle } from "react-icons/fa";
+
 import axios from "axios";
 import { AiOutlineHeart } from "react-icons/ai";
 import { jwtDecode } from "jwt-decode";
@@ -343,14 +339,16 @@ import {
 } from "mdb-react-ui-kit";
 import "./MyAccount.css"; // Create this file for additional custom styles
 import { WishlistContext } from "../../Context/WishlistContext";
-
+import { FaUserCircle } from "react-icons/fa"; // Importing the avatar icon
 
 const MyAccount = () => {
-  const { fetchCart, cartItems, removeFromCart, updateCartItem,clearCart } = useContext(CartContext);
+  const { fetchCart, cartItems, removeFromCart, updateCartItem, clearCart } =
+    useContext(CartContext);
   const { user, accessToken } = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
   const [total, setTotal] = useState(0);
-  const { wishlistItems, fetchWishlist, removeFromWishlist } = useContext(WishlistContext);
+  const { wishlistItems, fetchWishlist, removeFromWishlist } =
+    useContext(WishlistContext);
   const [showPaymentSuccess, setShowPaymentSuccess] = useState(false);
 
   const getUserDataFromToken = (token) => {
@@ -377,22 +375,18 @@ const MyAccount = () => {
   const handlePaymentConfirmation = async () => {
     try {
       // Create the order and handle payment
-      const response = await axios.post(
-        `http://127.0.0.1:8000/api/orders/`,
-        {
-          user_id: getUserDataFromToken(accessToken),
-          total: total + 2.99, // Total including shipping
-          shipping_address: userData?.address || "Not Provided",
-          cart_items: cartItems,
-        },
-        
-      );
-      
+      const response = await axios.post(`http://127.0.0.1:8000/api/orders/`, {
+        user_id: getUserDataFromToken(accessToken),
+        total: total + 2.99, // Total including shipping
+        shipping_address: userData?.address || "Not Provided",
+        cart_items: cartItems,
+      });
+
       if (response.status === 200) {
         setShowPaymentSuccess(true);
         clearCart(); // Clear the cart after successful order creation
       }
-      setShowPaymentSuccess(false)
+      setShowPaymentSuccess(false);
     } catch (error) {
       console.error("Error placing order:", error);
     }
@@ -431,9 +425,14 @@ const MyAccount = () => {
     <section className="h-100 h-custom">
       <div className="container py-5 h-100">
         {/* User Info */}
-        <div className="user-info bg-light rounded-lg p-4 mb-5 text-center">
-          <h2 className="text-2xl font-bold">{userData?.username || "Loading..."}</h2>
-          <p className="text-gray-500">{userData?.email || "Loading..."}</p>
+        <div className="user-info p-4 mb-5 d-flex align-items-center">
+          <div className="user-svg">
+            <FaUserCircle size={90} />
+          </div>
+          <div className="username-info">
+            <p className="uTitle">{userData?.username || "Loading..."}</p>
+            <p className="uMail">{userData?.email || "Loading..."}</p>
+          </div>
         </div>
 
         <div className="row">
@@ -442,9 +441,9 @@ const MyAccount = () => {
             {/* Wishlist Section */}
             <div className="card shadow-sm mb-4">
               <div className="card-body">
-                <h5 className="mb-4">Wishlist</h5>
+                <h5 className="mb-4 card-title">Wishlist</h5>
                 <table className="table table-responsive wishlist-table">
-                  <thead className="bg-light">
+                  <thead>
                     <tr>
                       <th scope="col">Wishlist</th>
                       <th scope="col">Actions</th>
@@ -457,13 +456,22 @@ const MyAccount = () => {
                           <td>
                             <div className="d-flex align-items-center">
                               <div className="flex-column ms-3">
-                                <p className="mb-2 font-bold">{item.product_name}</p>
-                                <p className="mb-0 text-muted">{item.product_description}</p>
+                                <p className="mb-2 font-bold">
+                                  {item.product_name}
+                                </p>
+                                <p className="mb-0 text-muted">
+                                  {item.product_description}
+                                </p>
                               </div>
                             </div>
                           </td>
                           <td>
-                            <button className="btn btn-danger" onClick={() => removeFromWishlist(item.product_id)}>
+                            <button
+                              className="removeBtn"
+                              onClick={() =>
+                                removeFromWishlist(item.product_id)
+                              }
+                            >
                               Remove
                             </button>
                           </td>
@@ -471,7 +479,9 @@ const MyAccount = () => {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="2" className="text-center">Your wishlist is empty.</td>
+                        <td colSpan="2" className="text-center">
+                          Your wishlist is empty.
+                        </td>
                       </tr>
                     )}
                   </tbody>
@@ -480,11 +490,11 @@ const MyAccount = () => {
             </div>
 
             {/* Cart Section */}
-            <div className="card shadow-sm">
+            <div className="card cart-card shadow-sm">
               <div className="card-body">
-                <h5 className="mb-4">Cart</h5>
+                <h5 className="mb-4 card-title">Cart</h5>
                 <table className="table table-responsive cart-table">
-                  <thead className="bg-light">
+                  <thead>
                     <tr>
                       <th scope="col">Cart</th>
                       <th scope="col">Quantity</th>
@@ -499,24 +509,31 @@ const MyAccount = () => {
                           <td>
                             <div className="d-flex align-items-center">
                               <div className="flex-column ms-3">
-                                <p className="mb-2 font-bold">{item.product_name}</p>
+                                <p
+                                  className="mb-2 font-bold"
+                                  style={{ maxWidth: "200px" }}
+                                >
+                                  {item.product_name}
+                                </p>
                               </div>
                             </div>
                           </td>
                           <td>
-                            <div className="d-flex align-items-center">
-                              <button className="btn btn-link" onClick={() => updateCartItem(item._id, item.quantity - 1)} disabled={item.quantity === 1}>
-                                -
-                              </button>
-                              <input type="number" min="1" value={item.quantity} readOnly />
-                              <button className="btn btn-link" onClick={() => updateCartItem(item._id, item.quantity + 1)}>
-                                +
-                              </button>
+                            <div className="quantity-controls">
+                              <input
+                                type="number"
+                                min="1"
+                                value={item.quantity}
+                                readOnly
+                              />
                             </div>
                           </td>
                           <td>₹{item.price}</td>
                           <td>
-                            <button className="btn btn-danger" onClick={() => removeFromCart(item._id)}>
+                            <button
+                              className="removeBtn"
+                              onClick={() => removeFromCart(item.product_id)}
+                            >
                               Remove
                             </button>
                           </td>
@@ -524,7 +541,9 @@ const MyAccount = () => {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="4" className="text-center">Your cart is empty.</td>
+                        <td colSpan="4" className="text-center">
+                          Your cart is empty.
+                        </td>
                       </tr>
                     )}
                   </tbody>
@@ -535,35 +554,47 @@ const MyAccount = () => {
 
           {/* Right Column for Checkout */}
           <div className="col-lg-4 col-md-12 mt-4 mt-lg-0">
-            <div className="card checkout-card shadow-2-strong">
-              <div className="card-body">
-                <h5 className="mb-3">Checkout</h5>
+            <div
+              className="card checkout-card shadow-2-strong"
+              style={{ minHeight: "400px" }}
+            >
+              <div className="card-body checkBody">
+                <h5 className="checkTitle">Checkout</h5>
                 <div className="d-flex justify-content-between mb-3">
                   <p className="mb-0">Subtotal</p>
                   <p className="mb-0">₹{total.toFixed(2)}</p>
                 </div>
-                <div className="d-flex justify-content-between mb-3">
+                <div className="d-flex justify-content-between mb-4">
                   <p className="mb-0">Shipping</p>
                   <p className="mb-0">₹2.99</p>
                 </div>
                 <hr />
-                <div className="d-flex justify-content-between mb-4">
+                <div className="d-flex justify-content-between checkShipp">
                   <h6 className="mb-0">Total</h6>
                   <h6 className="mb-0">₹{(total + 2.99).toFixed(2)}</h6>
                 </div>
-                <button className="btn btn-dark btn-lg btn-block" onClick={handlePaymentConfirmation}>
-                  Confirm Payment
-                </button>
+                <div className="text-center">
+                  <button
+                    className="checkBtn"
+                    onClick={handlePaymentConfirmation}
+                  >
+                    Confirm Payment
+                  </button>
+                </div>
               </div>
             </div>
 
             {showPaymentSuccess && (
-              <div className="modal" style={{ display: 'block' }}>
+              <div className="modal" style={{ display: "block" }}>
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <div className="modal-header">
                       <h5 className="modal-title">Payment Successful</h5>
-                      <button type="button" className="close" onClick={() => setShowPaymentSuccess(false)}>
+                      <button
+                        type="button"
+                        className="close"
+                        onClick={() => setShowPaymentSuccess(false)}
+                      >
                         ×
                       </button>
                     </div>
@@ -578,8 +609,6 @@ const MyAccount = () => {
         </div>
       </div>
     </section>
-
-
   );
 };
 

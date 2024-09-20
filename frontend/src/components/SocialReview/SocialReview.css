@@ -159,36 +159,3 @@
   padding: 0 1.5rem;
 }
 
-/* Button styling */
-.btn {
-  display: inline-block;
-  padding: 12px 24px;
-  font-size: 1rem;
-  font-family: "Bai Jamjuree", sans-serif;
-  font-weight: 700;
-  color: #fff;
-  background-color: #f76c6c;
-  border: none;
-  border-radius: 30px;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 0.3s, transform 0.3s;
-  cursor: pointer;
-}
-
-.btn:hover,
-.btn:focus {
-  background-color: #eca45d;
-  transform: scale(1.05);
-}
-
-.btn:active {
-  background-color: #d9534f;
-  transform: scale(0.95);
-}
-
-.btn:disabled {
-  background-color: #ddd;
-  color: #aaa;
-  cursor: not-allowed;
-}

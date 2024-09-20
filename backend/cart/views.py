@@ -237,20 +237,21 @@ class UpdateCartItemView(APIView):
         return Response({"message": "Cart item updated"}, status=status.HTTP_200_OK)
     
 @csrf_exempt
-def remove_from_cart(request, cart_item_id):
+def remove_from_cart(request, product_id):
     if request.method == "DELETE":
         try:
+            # Validate ObjectId
+            if not ObjectId.is_valid(product_id):
+                return JsonResponse({"error": "Invalid product ID"}, status=400)
+
             client = MongoClient(settings.MONGO_URI)
             db = client[settings.MONGO_DB_NAME]
             cart_collection = db["carts"]
 
-            # Check if the cart item ID is valid
-            cart_item_id = ObjectId(cart_item_id)
-
             # Remove the specific product from the cart
             result = cart_collection.update_one(
-                {"products.product_id": cart_item_id},
-                {"$pull": {"products": {"product_id": cart_item_id}}}
+                {"products.product_id": ObjectId(product_id)},  # Match the product_id in products
+                {"$pull": {"products": {"product_id": ObjectId(product_id)}}}
             )
 
             if result.modified_count > 0:
@@ -261,6 +262,7 @@ def remove_from_cart(request, cart_item_id):
             return JsonResponse({"error": str(e)}, status=500)
     else:
         return JsonResponse({"error": "Invalid request method"}, status=400)
+      
 class ClearCartView(APIView):
     permission_classes = [AllowAny]
 

@@ -58,12 +58,21 @@ class Product:
         return Product.collection.find({"category": category})
 
     @staticmethod
-    def update_product(product_id, update_fields):
-        return Product.collection.update_one(
-            {"_id": ObjectId(product_id)},
-            {"$set": update_fields}
-        )
-
+    def update_stock(product_id, change):
+        product = Product.get_product_by_id(product_id)
+        if product:
+            new_stock = product['stock'] - change
+            if new_stock < 0:
+                raise ValueError('Insufficient stock')
+            
+            result = Product.collection.update_one(
+                {"_id": ObjectId(product_id)},
+                {"$set": {"stock": new_stock}}
+            )
+            return result  # Return the result of the update operation
+        else:
+            raise ValueError('Product not found')
+    
     @staticmethod
     def delete_product(product_id):
         return Product.collection.delete_one({"_id": ObjectId(product_id)})
@@ -72,5 +81,5 @@ class Product:
     def list_products(limit=10, skip=0):
         return Product.collection.find().skip(skip).limit(limit)
     
-    def __str__(self):
+    def __str__(self):  
         return self.name

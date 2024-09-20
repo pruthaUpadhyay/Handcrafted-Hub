@@ -200,6 +200,7 @@ CORS_ALLOW_METHODS = [
     'POST',
     'GET',
     'OPTIONS',
+    'PATCH'
 ]
 
 SIMPLE_JWT = {
