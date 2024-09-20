@@ -340,6 +340,7 @@ import {
 import "./MyAccount.css"; // Create this file for additional custom styles
 import { WishlistContext } from "../../Context/WishlistContext";
 import { FaUserCircle } from "react-icons/fa"; // Importing the avatar icon
+import Footer from "../../components/Footer/Footer";
 
 const MyAccount = () => {
   const { fetchCart, cartItems, removeFromCart, updateCartItem, clearCart } =
@@ -422,6 +423,7 @@ const MyAccount = () => {
   }, [accessToken]);
 
   return (
+    <>
     <section className="h-100 h-custom">
       <div className="container py-5 h-100">
         {/* User Info */}
@@ -532,7 +534,7 @@ const MyAccount = () => {
                           <td>
                             <button
                               className="removeBtn"
-                              onClick={() => removeFromCart(item.product_id)}
+                              onClick={() => removeFromCart(item.product_id,item.quantity)}
                             >
                               Remove
                             </button>
@@ -609,6 +611,8 @@ const MyAccount = () => {
         </div>
       </div>
     </section>
+    <Footer/>
+    </>
   );
 };
 

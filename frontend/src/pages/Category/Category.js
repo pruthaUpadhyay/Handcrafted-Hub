@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { WishlistContext } from '../../Context/WishlistContext';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import Footer from '../../components/Footer/Footer';
 
 export default function Category() {
     const [products, setProducts] = useState([]);
@@ -66,6 +67,7 @@ export default function Category() {
                     })}
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 }

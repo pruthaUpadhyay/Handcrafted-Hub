@@ -11,6 +11,7 @@ import About from '../../components/About/About'
 import Footer from '../../components/Footer/Footer'
 import Category from '../Category/Category'
 import Cart from '../Cart/Cart'
+import ScrollEffect from '../../components/ScrollEffect/ScrollEffect'
 
 
 
@@ -19,13 +20,13 @@ function Home() {
     <div>
       
       <Banner/>
-      <BestSeller/>
-      <ReviewBanner/>
-      <MostLoved/>
-      <DesignedBanner/>
-      <NewArraivals/>
-      <About/>
-      <SocialReview/>
+      <ScrollEffect><BestSeller /></ScrollEffect>
+      <ScrollEffect><ReviewBanner /></ScrollEffect>
+      <ScrollEffect><MostLoved /></ScrollEffect>
+      <ScrollEffect><DesignedBanner /></ScrollEffect>
+      <ScrollEffect><NewArraivals /></ScrollEffect>
+      <ScrollEffect><About /></ScrollEffect>
+      <ScrollEffect><SocialReview /></ScrollEffect>
       {/* <Category/>  */}
       
       

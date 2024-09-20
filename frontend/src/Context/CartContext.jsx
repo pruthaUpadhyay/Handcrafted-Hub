@@ -283,52 +283,52 @@ export const CartProvider = ({ children }) => {
   // Fetch cart items
   const fetchCart = async () => {
     if (!user) {
-      console.error('User is not logged in');
+      console.error("User is not logged in");
       return;
     }
 
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem("access_token");
     if (!token) {
-      console.error('No access token found');
+      console.error("No access token found");
       return;
     }
 
     try {
-      const response = await axios.post(
-        'http://127.0.0.1:8000/user/cart/',
-        {
-          user_id: user.user_id
-        }
-      );
+      const response = await axios.post("http://127.0.0.1:8000/user/cart/", {
+        user_id: user.user_id,
+      });
       setCartItems(response.data.cart_items || []);
     } catch (error) {
-      console.error('Error fetching cart items:', error.response?.data || error);
+      console.error(
+        "Error fetching cart items:",
+        error.response?.data || error
+      );
     }
   };
 
   // Add an item to the cart
-  const addToCart = async (productId, quantity,selectedSize) => {
+  const addToCart = async (productId, quantity, selectedSize) => {
     if (!user) {
-      alert('Please log in to add items to your cart.');
-      navigate('/login');
+      alert("Please log in to add items to your cart.");
+      navigate("/login");
       return;
     }
 
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem("access_token");
     if (!token) {
-      alert('Please log in to add items to your cart.');
-      navigate('/login');
-      console.error('No access token found');
+      alert("Please log in to add items to your cart.");
+      navigate("/login");
+      console.error("No access token found");
       return;
     }
     if (!selectedSize) {
-      alert('Please select a size.');
+      alert("Please select a size.");
       return;
     }
 
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/user/cart/add/',
+        "http://127.0.0.1:8000/user/cart/add/",
         {
           product_id: productId,
           quantity: quantity,
@@ -337,94 +337,96 @@ export const CartProvider = ({ children }) => {
         }
       );
       fetchCart(); // Refresh the cart after adding
-      alert('Item added to cart');
-      navigate('/my-account');
+      alert("Item added to cart");
+      navigate("/my-account");
     } catch (error) {
-      console.error('Error adding to cart:', error.response?.data || error);
+      console.error("Error adding to cart:", error.response?.data || error);
     }
   };
 
   // Update cart item quantity
   const updateCartItem = async (cartItemId, quantity) => {
     if (!user) {
-      alert('Please log in to update your cart.');
-      navigate('/login');
+      alert("Please log in to update your cart.");
+      navigate("/login");
       return;
     }
 
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem("access_token");
     if (!token) {
-      alert('Please log in to update your cart.');
-      navigate('/login');
-      console.error('No access token found');
+      alert("Please log in to update your cart.");
+      navigate("/login");
+      console.error("No access token found");
       return;
     }
 
     try {
-      await axios.put(
-        `http://127.0.0.1:8000/user/cart/update/${cartItemId}/`,
-        { quantity }
-      );
+      await axios.put(`http://127.0.0.1:8000/user/cart/update/${cartItemId}/`, {
+        quantity,
+      });
       fetchCart(); // Refresh the cart after updating
     } catch (error) {
-      console.error('Error updating cart item:', error.response?.data || error);
+      console.error("Error updating cart item:", error.response?.data || error);
     }
   };
 
   // Remove item from the cart
-  const removeFromCart = async (productId) => {
+  const removeFromCart = async (productId,quantity) => {
     if (!user) {
-      alert('Please log in to remove items from your cart.');
-      navigate('/login');
+      alert("Please log in to remove items from your cart.");
+      navigate("/login");
       return;
     }
 
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem("access_token");
     if (!token) {
-      alert('Please log in to remove items from your cart.');
-      navigate('/login');
-      console.error('No access token found');
+      alert("Please log in to remove items from your cart.");
+      navigate("/login");
+      console.error("No access token found");
       return;
     }
 
-    
     try {
       const response = await axios.delete(
-          `http://127.0.0.1:8000/user/cart/remove/${productId}/`
+        `http://127.0.0.1:8000/user/cart/remove/${productId}/`,
+        {
+          data: { quantity },
+        }
       );
       console.log("Response:", response.data); // Log the response to confirm success
       fetchCart(); // Refresh the cart after removal
-  } catch (error) {
-      console.error('Error removing item from cart:', error.response?.data || error);
-  }
-}
+    } catch (error) {
+      console.error(
+        "Error removing item from cart:",
+        error.response?.data || error
+      );
+    }
+  };
   // Clear the cart
   const clearCart = async () => {
     if (!user) {
-      alert('Please log in to clear your cart.');
-      navigate('/login');
+      alert("Please log in to clear your cart.");
+      navigate("/login");
       return;
     }
 
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem("access_token");
     if (!token) {
-      alert('Please log in to clear your cart.');
-      navigate('/login');
-      console.error('No access token found');
+      alert("Please log in to clear your cart.");
+      navigate("/login");
+      console.error("No access token found");
       return;
     }
 
     try {
-      await axios.delete(
-        'http://127.0.0.1:8000/user/cart/clear/'
-      ,
-      {data : {
-        user_id: user.user_id,
-      }}
-    );
+      await axios.delete("http://127.0.0.1:8000/user/cart/clear/", {
+        data: {
+          user_id: user.user_id,
+        },
+      });
       setCartItems([]); // Clear the cart state
     } catch (error) {
-      console.error('Error clearing cart:', error.response?.data || error);
+      console.error("Error clearing cart:", error.response?.data || error);
     }
   };
 

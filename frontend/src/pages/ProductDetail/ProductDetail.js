@@ -229,6 +229,7 @@ import { MDBBtn } from 'mdb-react-ui-kit';
 import { WishlistContext } from '../../Context/WishlistContext';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import './ProductDetail.css'
+import Footer from "../../components/Footer/Footer";
 const ProductDetail = () => {
   const { slug } = useParams();
   const [product, setProduct] = useState(null);
@@ -272,7 +273,7 @@ const ProductDetail = () => {
       await updateStock(product._id, -1); // Decrement stock by 1
     }
   };
-  
+
   const updateStock = async (productId, change) => {
     try {
       await axios.patch(`http://127.0.0.1:8000/products/${productId}/update-stock/`, {
@@ -282,28 +283,29 @@ const ProductDetail = () => {
       console.error("Error updating stock:", error);
     }
   };
-  
-  
+
+
   // In the render method
   console.log('Current quantity:', quantity); // Debugging log
-  
+
   const handleSizeSelection = (size) => {
     setSelectedSize(size);
   };
-  
+
   if (loading) {
     return <div>Loading product details...</div>;
   }
   const isInWishlist = wishlistItems.some(item => item.product_id === product._id);
-  
+
   if (!product) {
     return <div>Product not found.</div>;
   }
-  
+
   const plusMinuceButton =
-  "flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500";
-  
+    "flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500";
+
   return (
+    <>
     <section className="container flex-grow mx-auto max-w-[1200px] border-b py-5 lg:grid lg:grid-cols-2 lg:py-10">
       <div className="container mx-auto px-4">
         <ReactImageGallery
@@ -318,21 +320,21 @@ const ProductDetail = () => {
       </div>
 
       <div className="mx-auto px-5 lg:px-5">
-        <h2 className="pt-3 text-2xl font-bold lg:pt-0">
+        <h2 className="pt-3 text-2xl font-bold lg:pt-0 pName">
           {product.name}
         </h2>
-        <p className="font-bold">Category: <span className="font-normal">{product.category}</span></p>
-        <p className="mt-4 text-4xl font-bold text-violet-900">
+        <p className="font-bold pCat"><span style={{color:"#52584D"}}>Category : </span><span className="font-normal">{product.category}</span></p>
+        <p className="text-4xl font-bold pPrice">
           ₹{product.price} INR
         </p>
-        <p className="pt-5 text-sm leading-5 text-gray-500">
+        <p className="text-sm leading-5 pDes">
           {product.description}
         </p>
 
         <p className="font-bold">
-          Stock:{" "}
+        <span style={{color:"#52584D",fontSize:"1.3rem"}}>Stock : {" "}</span>
           {product.stock > 0 ? (
-            <span className="text-green-600">{product.stock} left</span>
+            <span className="pStock">{product.stock} left</span>
           ) : (
             <span className="text-red-600">Out of Stock</span>
           )}
@@ -341,12 +343,12 @@ const ProductDetail = () => {
         {product.has_sizes && product.sizes.length > 0 && (
           
           <div className="mt-6">
-            <p className="pb-2 text-xs text-gray-500">Size</p>
+            <p className="pb-2 text-xs pSize font-bold"><span style={{color:"#52584D",fontSize:"1rem"}}>Size</span></p>
             <div className="flex gap-1">
               {product.sizes.map((size, index) => (
                 <div
                   key={index}
-                  className={`${plusMinuceButton} ${selectedSize === size ? 'bg-gray-200' : ''}`}
+                  className={`${plusMinuceButton} ${selectedSize === size ? 'bg-gray-900' : ''}`}
                   onClick={() => handleSizeSelection(size)}
                 >
                   {size}
@@ -357,16 +359,17 @@ const ProductDetail = () => {
         )}
 
         <div className="mt-6">
-          <p className="pb-2 text-xs text-gray-500">Quantity</p>
+          <p className="pb-2 text-xs pQunat font-bold">
+          <span style={{color:"#52584D",fontSize:"1rem"}}>Quantity</span></p>
           <div className="flex items-center">
             <button className={plusMinuceButton} onClick={() => handleQuantityChange("decrease")}>−</button>
             <div className="flex h-8 w-8 items-center justify-center border-t border-b">{quantity}</div>
             <button className={plusMinuceButton} onClick={() => handleQuantityChange("increase")}>+</button>
           </div>
-          <p className="text-xs text-gray-500">Max available: {product.stock}</p>
+          <p className="mt-3 text-xm text-gray-500">Max available: {product.stock}</p>
         </div>
 
-        <div className="mt-7 flex flex-row items-center gap-6">
+        <div className="mt-7 flex flex-row items-center">
           <div className="center-container">
           <AddToCartButton
             productId={product._id}
@@ -384,7 +387,8 @@ const ProductDetail = () => {
         </div>
       </div>
     </section>
+<Footer/>
+</>
   );
 };
-
 export default ProductDetail;

@@ -18,7 +18,7 @@ src/components/ProductPage.css
     color: #ff5733;
     } */
 .card-title {
-  font-family: "Roboto", sans-serif;
+  font-family: "Nunito Sans", sans-serif;
   font-weight: bold;
   color: #333;
   font-size: 1.25rem;
@@ -44,7 +44,7 @@ src/components/ProductPage.css
 }
 /* Product Description */
 .card-text {
-  font-family: "Roboto", sans-serif;
+  font-family: "Nunito Sans", sans-serif;
   color: #666;
   font-size: 0.95rem;
   text-align: center;
@@ -53,7 +53,7 @@ src/components/ProductPage.css
 
 /* Product Price */
 .product-price {
-  font-family: "Roboto", sans-serif;
+  font-family: "Nunito Sans", sans-serif;
   color: #28a745;
   font-size: 1.5rem;
   font-weight: bold;

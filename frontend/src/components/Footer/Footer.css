@@ -9,3 +9,89 @@
 .footer-container.mobile {
   background-image: url('//cdn.shopify.com/s/files/1/0155/8131/files/Group_4058_29ac73ce-f1de-45fd-a4f7-bc35a5925187.png?v=1664284653');
 }
+.footer-container {
+  background-color: #f8f8f8; /* Light background for contrast */
+  color: #333; /* Dark text for readability */
+  padding: 2rem 0;
+}
+
+.footer-container img {
+  max-width: 100%;
+}
+
+.footer-container ul {
+  list-style-type: none; /* Remove default list styling */
+  padding: 0; /* Remove default padding */
+}
+
+.footer-container li {
+  margin-bottom: 0.5rem; /* Space between list items */
+}
+
+.footer-container a {
+  text-decoration: none; /* Remove underline from links */
+}
+
+.footer-container a:hover {
+  text-decoration: underline; /* Underline links on hover */
+}
+
+.footer-container .text-gray-600 {
+  color: #6b7280; /* Tailwind gray-600 */
+}
+
+.footer-container .text-gray-400 {
+  color: #9ca3af; /* Tailwind gray-400 */
+}
+
+.footer-container .bg-gray-800 {
+  background-color: #2d3748; /* Tailwind gray-800 */
+}
+
+.footer-container input {
+  width: 100%;
+  padding: 0.75rem; /* Add padding to input */
+  border: 1px solid #d1d5db; /* Border color */
+  border-radius: 0.375rem; /* Rounded corners */
+}
+.subBtn{
+    margin-top: 30px;
+    font-family: 'Nunito Sans', sans-serif !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    padding: 10px 20px !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    border: 2px solid #CE884B !important;
+    border-radius: 25px !important;
+    transition: all 0.3s ease !important;
+    margin-right: 100px;
+  }
+  
+  .subBtn:hover {
+    background-color: #CE884B !important;
+    color: white !important;
+  }
+  
+
+
+.footer-container button {
+  padding: 0.75rem 1.5rem; /* Add padding to button */
+  border: none; /* Remove default border */
+  border-radius: 0.375rem; /* Rounded corners */
+  cursor: pointer; /* Change cursor on hover */
+}
+
+.footer-container button:hover {
+  background-color: #1e40af; /* Darker blue on hover */
+}
+
+.footer-container hr {
+  border: 1px solid #e5e7eb; /* Light gray for separator */
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 2rem 1rem; /* Adjust padding for smaller screens */
+  }
+}
