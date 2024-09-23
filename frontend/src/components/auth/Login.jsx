@@ -13,6 +13,7 @@ import {
   Link
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import './Login.module.css'
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -76,11 +77,6 @@ const Login = () => {
             Login
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
             <Grid item>
               <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}

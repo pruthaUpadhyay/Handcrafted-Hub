@@ -13,6 +13,7 @@ import {
   Link,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import './Login.module.css'
 
 const SignUp = () => {
   const [email, setEmail] = useState("");

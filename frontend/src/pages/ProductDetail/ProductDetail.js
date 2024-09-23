@@ -374,7 +374,8 @@ const ProductDetail = () => {
           <AddToCartButton
             productId={product._id}
             quantity={quantity}
-            selectedSize={selectedSize} // Pass selectedSize to the button component
+            selectedSize={selectedSize} 
+            hasSize = {product.hasSize}// Pass selectedSize to the button component
           />
             <button
               className={`wishlist-icon ${isInWishlist ? 'in-wishlist' : ''}`}

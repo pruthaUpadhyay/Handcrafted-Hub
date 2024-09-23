@@ -307,13 +307,13 @@ export const CartProvider = ({ children }) => {
   };
 
   // Add an item to the cart
-  const addToCart = async (productId, quantity, selectedSize) => {
+  const addToCart = async (productId, quantity, selectedSize, hasSizes) => {
     if (!user) {
       alert("Please log in to add items to your cart.");
       navigate("/login");
       return;
     }
-
+  
     const token = localStorage.getItem("access_token");
     if (!token) {
       alert("Please log in to add items to your cart.");
@@ -321,11 +321,13 @@ export const CartProvider = ({ children }) => {
       console.error("No access token found");
       return;
     }
-    if (!selectedSize) {
+  
+    // Check if the product requires size, and validate only if necessary
+    if (hasSizes && !selectedSize) {
       alert("Please select a size.");
       return;
     }
-
+  
     try {
       const response = await axios.post(
         "http://127.0.0.1:8000/user/cart/add/",
@@ -333,7 +335,7 @@ export const CartProvider = ({ children }) => {
           product_id: productId,
           quantity: quantity,
           user_id: user.user_id,
-          size: selectedSize,
+          size: hasSizes ? selectedSize : null, // Only pass size if required
         }
       );
       fetchCart(); // Refresh the cart after adding
@@ -343,7 +345,7 @@ export const CartProvider = ({ children }) => {
       console.error("Error adding to cart:", error.response?.data || error);
     }
   };
-
+  
   // Update cart item quantity
   const updateCartItem = async (cartItemId, quantity) => {
     if (!user) {
